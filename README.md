@@ -36,10 +36,14 @@ https://github.com/Bayice/CSC3170-Project
 
 ## 人员任务分配（草案，只是想当然的独断专行）：
 编程：3-4
+
 课堂展示：？
+
 网页设计：梅傲涵 + 1-2，（我略会一点html顺带也可要点书院网站的素材啥的）
+
 项目报告:1
- Group Coordinator：何绪
+
+Group Coordinator：何绪
 
 ## ER关系细节
 
