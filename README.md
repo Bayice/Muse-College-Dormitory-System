@@ -33,9 +33,16 @@
 
 ## Github仓库：
 https://github.com/Bayice/CSC3170-Project
+
 我设置成了私有仓库，你们可以有空发给我你们的github名字，我有空加进去，这样方便看进度，
 不会用就直接下载，但是多人编辑我还是建议git
 反正暂时编程还没开始也不着急
+
+## Overleaf项目报告编辑模板
+https://www.overleaf.com/2497779772mhncyfmctddj#f4a388
+
+我预计应该是类似Report之类的，先开个Overleaf同步编辑，点进去注册账号就可以多人实时编辑
+大家应该都会latex...吧？
 
 
 ## 人员任务分配（草案，只是想当然的独断专行）：
