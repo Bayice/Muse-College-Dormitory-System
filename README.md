@@ -30,6 +30,70 @@
 
 5月8号 11点: 交项目报告
 
+## 组会1纪要
+
+1.	实体：
+•	宿舍楼（Dormitory）
+
+
+•	属性：楼号（Dormitory_ID），舍监
+
+
+•	楼层（Floor）
+•	属性：楼层号（Floor_Number）、所属宿舍楼号（Dormitory_ID），男女，楼层导师
+
+
+•	房间（Room）
+•	属性：房间号（Room_ID）、所属宿舍楼号（Dormitory_ID）、所属楼层号（Floor_Number）、房间类型、床位数量（Bed_Count）,房间政策方针（varchar）等
+
+
+•	学生（Student）
+•	属性：学号（Student_ID）、姓名、性别、年龄/级、联系方式等
+•	
+•	床位（Bed）
+•	属性：床位号（Bed_ID）、所属房间号（Room_ID）、所属宿舍楼号（Dormitory_ID）
+
+
+•	舍监：id 姓名 
+
+
+•	导师：id 姓名 宿舍楼 楼层 房间号
+
+
+3.	关系：
+
+4.	
+•	学生与宿舍床位的关系（Student_Bed_Assignment）
+•	每个学生（Student_ID）被分配到一个宿舍的一个床位（Bed_ID）
+楼层 -》 宿舍楼
+
+
+
+Role：学生，楼层导师，舍监，管理员 
+
+
+学生：未分配: 查看哪个宿舍空余  分配后：查看宿舍里面哪些人，修改政策方针
+
+
+楼层导师：查看它那一层的所有信息
+
+
+舍监：查看它那一栋的所有信息
+
+
+管理员：查看全部信息和学生，舍监，导师的修改
+
+
+
+网页界面：用于展示给用户的用户界面（UI）
+
+
+SQL数据库：用于存储和管理数据，包括学生信息、宿舍信息、申请信息等。
+后端代码： 
+
+
+思廷官网（扣素材用）：https://muse.cuhk.edu.cn/
+
 
 ## Github仓库：
 https://github.com/Bayice/CSC3170-Project
