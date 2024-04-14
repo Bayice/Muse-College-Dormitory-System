@@ -41,12 +41,10 @@
 •	属性：楼号（Dormitory_ID），舍监
 
 
-
 •	楼层（Floor）
 
 
 •	属性：楼层号（Floor_Number）、所属宿舍楼号（Dormitory_ID），男女，楼层导师
-
 
 
 •	房间（Room）
@@ -55,12 +53,10 @@
 •	属性：房间号（Room_ID）、所属宿舍楼号（Dormitory_ID）、所属楼层号（Floor_Number）、房间类型、床位数量（Bed_Count）,房间政策方针（varchar）等
 
 
-
 •	学生（Student）
 
 
 •	属性：学号（Student_ID）、姓名、性别、年龄/级、联系方式等
-
 
 
 •	床位（Bed）
@@ -69,18 +65,13 @@
 •	属性：床位号（Bed_ID）、所属房间号（Room_ID）、所属宿舍楼号（Dormitory_ID）
 
 
-
 •	舍监：id 姓名 
-
 
 
 •	导师：id 姓名 宿舍楼 楼层 房间号
 
 
-
 3.	关系：
-
-4.	
 •	学生与宿舍床位的关系（Student_Bed_Assignment）
 •	每个学生（Student_ID）被分配到一个宿舍的一个床位（Bed_ID）
 楼层 -》 宿舍楼
