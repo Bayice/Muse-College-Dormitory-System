@@ -142,7 +142,7 @@ if __name__ == '__main__':
     database = "csc3170"
     db = MySQL(host, user, password, database)
     
-    db.drop_all()
+    # db.drop_all()
 
     # 创建 Dormitory_Supervisor 表格
     dormitory_supervisor_columns = (
