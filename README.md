@@ -50,7 +50,7 @@
 •	房间（Room）
 
 
-•	属性：房间号（Room_ID）、所属宿舍楼号（Dormitory_ID）、所属楼层号（Floor_Number）、房间类型、床位数量（Bed_Count）,房间政策方针（varchar）等
+•	属性：房间号（Room_ID）、所属宿舍楼号（Dormitory_ID）、所属楼层号（Floor_Number）、房间类型(Floor_Type(上床下桌或者上下铺))、住宿学生（Student_Type）、床位数量（Bed_Count）,房间政策方针（varchar）等
 
 
 •	学生（Student）
