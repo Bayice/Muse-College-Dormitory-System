@@ -4,7 +4,7 @@ import string
 import pymysql
 
 if __name__ == '__main__':
-    host = "10.31.106.177"#这是远程连接数据库的ip不固定，连接学校网络可以查询，更改为localhost可以连接到自己本地数据库
+    host = "10.23.68.16"#这是远程连接数据库的ip不固定，连接学校网络可以查询，更改为localhost可以连接到自己本地数据库
     user = "root"
     password = "123456"
     database = "csc3170"
