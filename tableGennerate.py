@@ -15,7 +15,8 @@ if __name__ == '__main__':
     # 创建 Dormitory_Supervisor 表格
     dormitory_supervisor_columns = (
         "Supervisor_ID INT PRIMARY KEY, "
-        "Name VARCHAR(50)"
+        "Name VARCHAR(50),"
+        "Password INT"
     )
     db.create_table("Dormitory_Supervisor", dormitory_supervisor_columns)
     
@@ -30,7 +31,8 @@ if __name__ == '__main__':
     # 创建 Floor_Tutor 表格
     floor_tutor_columns = (
         "Tutor_ID INT PRIMARY KEY, "
-        "Name VARCHAR(50)"
+        "Name VARCHAR(50),"
+        "Password INT"
     )
     db.create_table("Floor_Tutor", floor_tutor_columns)
 
@@ -65,7 +67,7 @@ if __name__ == '__main__':
         "Dormitory_ID VARCHAR(50), "
         "Bed_Number INT, "
         "Floor_Number INT, "
-        "PRIMARY KEY (Room_ID, Dormitory_ID, Bed_Number), "
+        "PRIMARY KEY (Room_ID, Dormitory_ID, Floor_Number, Bed_Number), "
         "FOREIGN KEY (Room_ID, Floor_Number,Dormitory_ID) REFERENCES Room(Room_ID, Floor_Number,Dormitory_ID)"
     )
     db.create_table("Bed", bed_columns)
@@ -74,14 +76,16 @@ if __name__ == '__main__':
     student_columns = (
         "Student_ID INT PRIMARY KEY, "
         "Name VARCHAR(50), "
+        "Type  VARCHAR(50), "
+        "Dormitory_ID VARCHAR(50), "
+        "Floor_Number INT, "
+        "Room_ID VARCHAR(50), "
         "Gender VARCHAR(10), "
         "Age_Class VARCHAR(50), "
-        "Type  VARCHAR(50), "
         "Contact VARCHAR(50), "
-        "Room_ID VARCHAR(50), "
         "Bed_Number INT, "
-        "Dormitory_ID VARCHAR(50), "
-        "FOREIGN KEY (Room_ID, Dormitory_ID, Bed_Number) REFERENCES Bed(Room_ID, Dormitory_ID, Bed_Number)"
+        "Password INT,"
+        "FOREIGN KEY (Room_ID, Dormitory_ID, Floor_Number, Bed_Number) REFERENCES Bed(Room_ID, Dormitory_ID, Floor_Number, Bed_Number)"
     )
     db.create_table("Student", student_columns)
 
