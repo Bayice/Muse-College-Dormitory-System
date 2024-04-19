@@ -56,6 +56,7 @@ if __name__ == '__main__':
         "StudentType VARCHAR(50), "
         "Floor_Number INT, "
         "Dormitory_ID VARCHAR(50), "
+        "Is_empty INT, "
         "PRIMARY KEY (Room_ID, Floor_Number, Dormitory_ID), "
         "FOREIGN KEY (Floor_Number, Dormitory_ID) REFERENCES Floor(Floor_Number, Dormitory_ID)"
     )
@@ -67,6 +68,7 @@ if __name__ == '__main__':
         "Dormitory_ID VARCHAR(50), "
         "Bed_Number VARCHAR(50), "
         "Floor_Number INT, "
+        "Is_empty INT, "
         "PRIMARY KEY (Room_ID, Dormitory_ID, Floor_Number, Bed_Number), "
         "FOREIGN KEY (Room_ID, Floor_Number,Dormitory_ID) REFERENCES Room(Room_ID, Floor_Number,Dormitory_ID)"
     )
