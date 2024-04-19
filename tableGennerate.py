@@ -10,7 +10,7 @@ if __name__ == '__main__':
     database = "csc3170"
     db = MySQL(host, user, password, database)
     
-    # db.drop_all()
+    db.drop_all()
 
     # 创建 Dormitory_Supervisor 表格
     dormitory_supervisor_columns = (
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     bed_columns = (
         "Room_ID VARCHAR(50), "
         "Dormitory_ID VARCHAR(50), "
-        "Bed_Number INT, "
+        "Bed_Number VARCHAR(50), "
         "Floor_Number INT, "
         "PRIMARY KEY (Room_ID, Dormitory_ID, Floor_Number, Bed_Number), "
         "FOREIGN KEY (Room_ID, Floor_Number,Dormitory_ID) REFERENCES Room(Room_ID, Floor_Number,Dormitory_ID)"
@@ -83,7 +83,7 @@ if __name__ == '__main__':
         "Gender VARCHAR(10), "
         "Age_Class VARCHAR(50), "
         "Contact VARCHAR(50), "
-        "Bed_Number INT, "
+        "Bed_Number VARCHAR(50), "
         "Password INT,"
         "FOREIGN KEY (Room_ID, Dormitory_ID, Floor_Number, Bed_Number) REFERENCES Bed(Room_ID, Dormitory_ID, Floor_Number, Bed_Number)"
     )

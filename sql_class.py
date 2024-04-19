@@ -62,6 +62,7 @@ class MySQL:
         except pymysql.err.ProgrammingError as err:
             print("Error creating table: {}".format(err))
 
+
     def drop_table(self, table_name):
         # 删除表
         use_db_query = "USE csc3170"
@@ -87,18 +88,158 @@ class MySQL:
                 print(row)
         else:
             print("Table '{}' does not exist.".format(table_name))
+            
+    def insert_into_table(self, data, column_index, table_name, column_name):
+        column_data = data.iloc[:, column_index]
+        # 插入数据到指定表和列中
+        for value in column_data:
+            select_query = "SELECT {} FROM {} WHERE {} = '{}'".format(column_name, table_name, column_name, value)
+            self.cursor.execute(select_query)
+            result = self.cursor.fetchone()
 
-    def insert_into_table(self, table_name, values):
-        # 向表中插入数据
-        columns = ', '.join(values.keys())
-        placeholders = ', '.join(['%s'] * len(values))
-        insert_query = "INSERT INTO {} ({}) VALUES ({})".format(table_name, columns, placeholders)
-        try:
-            self.cursor.execute(insert_query, list(values.values()))
-            self.connection.commit()
-            print("Data inserted into '{}' successfully.".format(table_name))
-        except pymysql.err.ProgrammingError as err:
-            print("Error inserting data into table: {}".format(err))
+            if result is None:
+                insert_query = "INSERT INTO {} ({}) VALUES ('{}') ON DUPLICATE KEY UPDATE {} = '{}'".format(table_name, column_name, value, column_name, value)
+                try:
+                    self.cursor.execute(insert_query)
+                    self.connection.commit()
+                    print("Data inserted successfully.")
+                except pymysql.Error as e:
+                    print("Error inserting data:", e)
+            elif result[0] != value:
+                update_query = "UPDATE {} SET {} = '{}' WHERE {} = '{}'".format(table_name, column_name, value, column_name, value)
+                try:
+                    self.cursor.execute(update_query)
+                    self.connection.commit()
+                    print("Data updated successfully.")
+                except pymysql.Error as e:
+                    print("Error updating data:", e)
+            
+    def insert_into_table_bi(self, data, column_indices, table_name, column_names):
+        if len(column_indices) != len(column_names):
+            print("Error: Number of column indices does not match number of column names.")
+            return
+
+        for index, row in data.iterrows():
+            value1 = row.iloc[column_indices[0]]
+            value2 = row.iloc[column_indices[1]]
+
+            select_query = "SELECT {}, {} FROM {} WHERE {} = '{}' AND {} = '{}'".format(column_names[0], column_names[1], table_name, column_names[0], value1, column_names[1], value2)
+            self.cursor.execute(select_query)
+            result = self.cursor.fetchone()
+
+            if result is None:
+                insert_query = "INSERT INTO {} ({}, {}) VALUES ('{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], value1, value2, column_names[0], value1, column_names[1], value2)
+                try:
+                    self.cursor.execute(insert_query)
+                    self.connection.commit()
+                    print("Data inserted successfully.")
+                except pymysql.Error as e:
+                    print("Error inserting data:", e)
+            elif result[0] != value1 or result[1] != value2:
+                update_query = "UPDATE {} SET {} = '{}', {} = '{}' WHERE {} = '{}' AND {} = '{}'".format(table_name, column_names[0], value1, column_names[1], value2, column_names[0], value1, column_names[1], value2)
+                try:
+                    self.cursor.execute(update_query)
+                    self.connection.commit()
+                    print("Data updated successfully.")
+                except pymysql.Error as e:
+                    print("Error updating data:", e)
+                    
+    def insert_into_table_tri(self, data, column_indices, table_name, column_names):
+        if len(column_indices) != len(column_names):
+            print("Error: Number of column indices does not match number of column names.")
+            return
+
+        for index, row in data.iterrows():
+            value1 = row.iloc[column_indices[0]]
+            value2 = row.iloc[column_indices[1]]
+            value3 = row.iloc[column_indices[2]]
+
+            select_query = "SELECT {}, {}, {} FROM {} WHERE {} = '{}' AND {} = '{}' AND {} = '{}'".format(column_names[0], column_names[1], column_names[2], table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3)
+            self.cursor.execute(select_query)
+            result = self.cursor.fetchone()
+
+            if result is None:
+                insert_query = "INSERT INTO {} ({}, {}, {}) VALUES ('{}', '{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], column_names[2], value1, value2, value3, column_names[0], value1, column_names[1], value2, column_names[2], value3)
+                try:
+                    self.cursor.execute(insert_query)
+                    self.connection.commit()
+                    print("Data inserted successfully.")
+                except pymysql.Error as e:
+                    print("Error inserting data:", e)
+            elif result[0] != value1 or result[1] != value2 or result[2] != value3:
+                update_query = "UPDATE {} SET {} = '{}', {} = '{}', {} = '{}' WHERE {} = '{}' AND {} = '{}' AND {} = '{}'".format(table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[0], value1, column_names[1], value2, column_names[2], value3)
+                try:
+                    self.cursor.execute(update_query)
+                    self.connection.commit()
+                    print("Data updated successfully.")
+                except pymysql.Error as e:
+                    print("Error updating data:", e)
+    
+    def insert_into_table_tetra(self, data, column_indices, table_name, column_names):
+        if len(column_indices) != len(column_names):
+            print("Error: Number of column indices does not match number of column names.")
+            return
+
+        for index, row in data.iterrows():
+            value1 = row.iloc[column_indices[0]]
+            value2 = row.iloc[column_indices[1]]
+            value3 = row.iloc[column_indices[2]]
+            value4 = row.iloc[column_indices[3]]
+            
+            select_query = "SELECT {}, {}, {}, {} FROM {} WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(column_names[0], column_names[1], column_names[2],column_names[3], table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3,column_names[3], value4)
+            self.cursor.execute(select_query)
+            result = self.cursor.fetchone()
+
+            if result is None:
+                insert_query = "INSERT INTO {} ({}, {}, {}, {}) VALUES ('{}', '{}', '{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}', {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], column_names[2],column_names[3], value1, value2, value3,value4, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4)
+                try:
+                    self.cursor.execute(insert_query)
+                    self.connection.commit()
+                    print("Data inserted successfully.")
+                except pymysql.Error as e:
+                    print("Error inserting data:", e)
+            elif result[0] != value1 or result[1] != value2 or result[2] != value3 or result[3] != value4:
+                update_query = "UPDATE {} SET {} = '{}', {} = '{}', {} = '{}', {} = '{}' WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4)
+                try:
+                    self.cursor.execute(update_query)
+                    self.connection.commit()
+                    print("Data updated successfully.")
+                except pymysql.Error as e:
+                    print("Error updating data:", e)
+
+    def insert_into_table_penta(self, data, column_indices, table_name, column_names):
+        if len(column_indices) != len(column_names):
+            print("Error: Number of column indices does not match number of column names.")
+            return
+
+        for index, row in data.iterrows():
+            value1 = row.iloc[column_indices[0]]
+            value2 = row.iloc[column_indices[1]]
+            value3 = row.iloc[column_indices[2]]
+            value4 = row.iloc[column_indices[3]]
+            value5 = row.iloc[column_indices[4]]
+            
+            select_query = "SELECT {}, {}, {}, {}, {} FROM {} WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(column_names[0], column_names[1], column_names[2], column_names[3], column_names[4], table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5)
+            self.cursor.execute(select_query)
+            result = self.cursor.fetchone()
+
+            if result is None:
+                insert_query = "INSERT INTO {} ({}, {}, {}, {}, {}) VALUES ('{}', '{}', '{}', '{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}', {} = '{}', {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], column_names[2],column_names[3], column_names[4], value1, value2, value3, value4, value5, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5)
+                try:
+                    self.cursor.execute(insert_query)
+                    self.connection.commit()
+                    print("Data inserted successfully.")
+                except pymysql.Error as e:
+                    print("Error inserting data:", e)
+            elif result[0] != value1 or result[1] != value2 or result[2] != value3 or result[3] != value4 or result[4] != value5:
+                update_query = "UPDATE {} SET {} = '{}', {} = '{}', {} = '{}', {} = '{}', {} = '{}' WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5)
+                try:
+                    self.cursor.execute(update_query)
+                    self.connection.commit()
+                    print("Data updated successfully.")
+                except pymysql.Error as e:
+                    print("Error updating data:", e)
+    ##试过用循环+列数 只用一个函数来实现，但是在插入数据的过程中会出现问题，所以分开写了
 
     def select_from_table(self, table_name, columns='*', condition=None):
         # 从表中查询数据
@@ -118,13 +259,14 @@ class MySQL:
             print("Error selecting data from table: {}".format(err))
 
     def clear_table(self, table_name):
-        # 清空表中数据
-        truncate_query = "TRUNCATE TABLE {}".format(table_name)
+    # 清空表中数据
+        delete_query = "DELETE FROM {}".format(table_name)
         try:
-            self.cursor.execute(truncate_query)
+            self.cursor.execute(delete_query)
+            self.connection.commit()
             print("Table '{}' data cleared successfully.".format(table_name))
         except pymysql.err.ProgrammingError as err:
-            print("Error truncating table '{}': {}".format(table_name, err))
+            print("Error deleting data from table '{}': {}".format(table_name, err))
 
     def drop_all(self):
         self.drop_table("Student")
