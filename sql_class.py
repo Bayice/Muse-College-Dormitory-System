@@ -103,22 +103,17 @@ class MySQL:
             self.cursor.execute(select_query)
             result = self.cursor.fetchone()
 
-            if result is None:
-                insert_query = "INSERT INTO {} ({}, {}) VALUES ('{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], value1, value2, column_names[0], value1, column_names[1], value2)
-                try:
-                    self.cursor.execute(insert_query)
-                    self.connection.commit()
-                    print("Data inserted successfully.")
-                except pymysql.Error as e:
-                    print("Error inserting data:", e)
-            elif result[0] != value1 or result[1] != value2:
-                update_query = "UPDATE {} SET {} = '{}', {} = '{}' WHERE {} = '{}' AND {} = '{}'".format(table_name, column_names[0], value1, column_names[1], value2, column_names[0], value1, column_names[1], value2)
-                try:
-                    self.cursor.execute(update_query)
-                    self.connection.commit()
-                    print("Data updated successfully.")
-                except pymysql.Error as e:
-                    print("Error updating data:", e)
+            if result is not None and result[0] == value1 and result[1] == value2:
+                continue
+
+            insert_query = "INSERT INTO {} ({}, {}) VALUES ('{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], value1, value2, column_names[0], value1, column_names[1], value2)
+            try:
+                self.cursor.execute(insert_query)
+                self.connection.commit()
+                print("Data inserted successfully.")
+            except pymysql.Error as e:
+                print("Error inserting data:", e)
+
                     
     def insert_into_table_tri(self, data, column_indices, table_name, column_names):
         if len(column_indices) != len(column_names):
@@ -134,22 +129,17 @@ class MySQL:
             self.cursor.execute(select_query)
             result = self.cursor.fetchone()
 
-            if result is None:
-                insert_query = "INSERT INTO {} ({}, {}, {}) VALUES ('{}', '{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], column_names[2], value1, value2, value3, column_names[0], value1, column_names[1], value2, column_names[2], value3)
-                try:
-                    self.cursor.execute(insert_query)
-                    self.connection.commit()
-                    print("Data inserted successfully.")
-                except pymysql.Error as e:
-                    print("Error inserting data:", e)
-            elif result[0] != value1 or result[1] != value2 or result[2] != value3:
-                update_query = "UPDATE {} SET {} = '{}', {} = '{}', {} = '{}' WHERE {} = '{}' AND {} = '{}' AND {} = '{}'".format(table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[0], value1, column_names[1], value2, column_names[2], value3)
-                try:
-                    self.cursor.execute(update_query)
-                    self.connection.commit()
-                    print("Data updated successfully.")
-                except pymysql.Error as e:
-                    print("Error updating data:", e)
+            if result is not None and result[0] == value1 and result[1] == value2 and result[2] == value3:
+                continue
+
+            insert_query = "INSERT INTO {} ({}, {}, {}) VALUES ('{}', '{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], column_names[2], value1, value2, value3, column_names[0], value1, column_names[1], value2, column_names[2], value3)
+            try:
+                self.cursor.execute(insert_query)
+                self.connection.commit()
+                print("Data inserted successfully.")
+            except pymysql.Error as e:
+                print("Error inserting data:", e)
+
     
     def insert_into_table_tetra(self, data, column_indices, table_name, column_names):
         if len(column_indices) != len(column_names):
@@ -161,27 +151,22 @@ class MySQL:
             value2 = row.iloc[column_indices[1]]
             value3 = row.iloc[column_indices[2]]
             value4 = row.iloc[column_indices[3]]
-            
-            select_query = "SELECT {}, {}, {}, {} FROM {} WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(column_names[0], column_names[1], column_names[2],column_names[3], table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3,column_names[3], value4)
+        
+            select_query = "SELECT {}, {}, {}, {} FROM {} WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(column_names[0], column_names[1], column_names[2], column_names[3], table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4)
             self.cursor.execute(select_query)
             result = self.cursor.fetchone()
 
-            if result is None:
-                insert_query = "INSERT INTO {} ({}, {}, {}, {}) VALUES ('{}', '{}', '{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}', {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], column_names[2],column_names[3], value1, value2, value3,value4, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4)
-                try:
-                    self.cursor.execute(insert_query)
-                    self.connection.commit()
-                    print("Data inserted successfully.")
-                except pymysql.Error as e:
-                    print("Error inserting data:", e)
-            elif result[0] != value1 or result[1] != value2 or result[2] != value3 or result[3] != value4:
-                update_query = "UPDATE {} SET {} = '{}', {} = '{}', {} = '{}', {} = '{}' WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4)
-                try:
-                    self.cursor.execute(update_query)
-                    self.connection.commit()
-                    print("Data updated successfully.")
-                except pymysql.Error as e:
-                    print("Error updating data:", e)
+            if result is not None and result[0] == value1 and result[1] == value2 and result[2] == value3 and result[3] == value4:
+                continue
+
+            insert_query = "INSERT INTO {} ({}, {}, {}, {}) VALUES ('{}', '{}', '{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}', {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], column_names[2], column_names[3], value1, value2, value3, value4, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4)
+            try:
+                self.cursor.execute(insert_query)
+                self.connection.commit()
+                print("Data inserted successfully.")
+            except pymysql.Error as e:
+                print("Error inserting data:", e)
+
 
     def insert_into_table_penta(self, data, column_indices, table_name, column_names):
         if len(column_indices) != len(column_names):
@@ -194,7 +179,7 @@ class MySQL:
             value3 = row.iloc[column_indices[2]]
             value4 = row.iloc[column_indices[3]]
             value5 = row.iloc[column_indices[4]]
-            
+    
             select_query = "SELECT {}, {}, {}, {}, {} FROM {} WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(column_names[0], column_names[1], column_names[2], column_names[3], column_names[4], table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5)
             self.cursor.execute(select_query)
             result = self.cursor.fetchone()
@@ -215,6 +200,8 @@ class MySQL:
                     print("Data updated successfully.")
                 except pymysql.Error as e:
                     print("Error updating data:", e)
+
+
              
     def insert_into_table_hexa(self, data, column_indices, table_name, column_names):
         if len(column_indices) != len(column_names):
@@ -222,35 +209,24 @@ class MySQL:
             return
 
         for index, row in data.iterrows():
-            value1 = row.iloc[column_indices[0]]
-            value2 = row.iloc[column_indices[1]]
-            value3 = row.iloc[column_indices[2]]
-            value4 = row.iloc[column_indices[3]]
-            value5 = row.iloc[column_indices[4]]
-            value6 = row.iloc[column_indices[5]]
-            
-            select_query = "SELECT {}, {}, {}, {}, {}, {} FROM {} WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}'".format(column_names[0], column_names[1], column_names[2], column_names[3], column_names[4], column_names[5], table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5, column_names[5], value6)
-            self.cursor.execute(select_query)
+            values = [row.iloc[column_indices[i]] for i in range(len(column_indices))]
+        
+            select_query = "SELECT {} FROM {} WHERE {}".format(', '.join(column_names), table_name, ' AND '.join([f"{column_names[i]} = %s" for i in range(len(column_names))]))
+            self.cursor.execute(select_query, values)
             result = self.cursor.fetchone()
 
-            if result is None:
-                insert_query = "INSERT INTO {} ({}, {}, {}, {}, {}, {}) VALUES ('{}', '{}', '{}', '{}', '{}', '{}') ON DUPLICATE KEY UPDATE {} = '{}', {} = '{}', {} = '{}', {} = '{}', {} = '{}'".format(table_name, column_names[0], column_names[1], column_names[2], column_names[3], column_names[4], column_names[5], value1, value2, value3, value4, value5, value6, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5, column_names[5], value6)
-                try:
-                    self.cursor.execute(insert_query)
-                    self.connection.commit()
-                    print("Data inserted successfully.")
-                except pymysql.Error as e:
-                    print("Error inserting data:", e)
-            elif result[0] != value1 or result[1] != value2 or result[2] != value3 or result[3] != value4 or result[4] != value5 or result[5] != value6:
-                update_query = "UPDATE {} SET {} = '{}', {} = '{}', {} = '{}', {} = '{}', {} = '{}', {} = '{}' WHERE {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}' AND {} = '{}', AND {} = '{}'".format(table_name, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5, column_names[5], value6, column_names[0], value1, column_names[1], value2, column_names[2], value3, column_names[3], value4, column_names[4], value5, column_names[5], value6)
-                try:
-                    self.cursor.execute(update_query)
-                    self.connection.commit()
-                    print("Data updated successfully.")
-                except pymysql.Error as e:
-                    print("Error updating data:", e)   
+            if result is not None and result == tuple(values):
+                continue
 
-    def insert_into_table_dec(self, data, column_indices, table_name, column_names):
+            insert_query = "INSERT INTO {} ({}) VALUES ({}) ON DUPLICATE KEY UPDATE {}".format(table_name, ', '.join(column_names), ', '.join(['%s'] * len(column_names)), ', '.join([f"{col} = %s" for col in column_names]))
+            try:
+                self.cursor.execute(insert_query, values * 2)
+                self.connection.commit()
+            except pymysql.Error as e:
+                print("Error inserting or updating data:", e)
+
+    
+    def insert_into_table_hept(self, data, column_indices, table_name, column_names):
         if len(column_indices) != len(column_names):
             print("Error: Number of column indices does not match number of column names.")
             return
@@ -258,26 +234,74 @@ class MySQL:
         for index, row in data.iterrows():
             values = [row.iloc[column_index] for column_index in column_indices]
 
+            select_query = "SELECT * FROM {} WHERE {}".format(table_name, ' AND '.join([f"{column_names[i]} = %s" for i in range(len(column_names))]))
+            self.cursor.execute(select_query, values)
+            result = self.cursor.fetchone()
+
+            if result is not None and result == tuple(values):
+                continue
+
+            insert_query = "INSERT INTO {} ({}) VALUES ({}) ON DUPLICATE KEY UPDATE {}".format(table_name, ', '.join(column_names), ', '.join(['%s'] * len(column_names)), ', '.join([f"{col} = %s" for col in column_names]))
+            try:
+                self.cursor.execute(insert_query, values * 2)
+                self.connection.commit()
+            except pymysql.Error as e:
+                print("Error inserting or updating data:", e)
+
+    
+    def insert_into_table_student(self, data, column_indices, table_name, column_names):
+        if len(column_indices) != len(column_names):
+            print("Error: Number of column indices does not match number of column names.")
+            return
+
+        for index, row in data.iterrows():
+            values = [row.iloc[column_index] for column_index in column_indices]
+
+            # Check if corresponding row exists in bed table
+            select_bed_query = "SELECT * FROM bed WHERE Room_ID = %s AND Bed_Number = %s"
+            self.cursor.execute(select_bed_query, (values[2], values[1]))
+            bed_result = self.cursor.fetchone()
+
+            if bed_result is None:
+                print("Error: No matching row in bed table. Cannot insert data into student table.", values)
+                continue
+
             select_query = "SELECT * FROM {} WHERE {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s".format(table_name, *column_names)
             self.cursor.execute(select_query, values)
             result = self.cursor.fetchone()
 
             if result is None:
+                # Check if the new data is the same as the existing data
+                check_query = "SELECT * FROM {} WHERE {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s AND {} = %s".format(table_name, *column_names)
+                self.cursor.execute(check_query, values)
+                existing_data = self.cursor.fetchone()
+
+                if existing_data is not None and existing_data[:len(values)] == tuple(values):
+                    print("Data already exists in the table with the same values. Skipping insertion and update.")
+                    continue
+
                 insert_query = "INSERT INTO {} ({}) VALUES ({}) ON DUPLICATE KEY UPDATE {}".format(table_name, ', '.join(column_names), ', '.join(['%s'] * len(column_names)), ', '.join([f"{col} = %s" for col in column_names]))
                 try:
                     self.cursor.execute(insert_query, values + values)
                     self.connection.commit()
                     print("Data inserted successfully.")
+
+                    # Update Is_empty column in room table
+                    update_room_query = "UPDATE room SET Is_empty = 0 WHERE Room_ID = %s"
+                    self.cursor.execute(update_room_query, (values[2],))
+                    self.connection.commit()
+                    print("Is_empty column in room table updated successfully.")
+
+                    # Update Is_empty column in bed table
+                    update_bed_query = "UPDATE bed SET Is_empty = 0 WHERE Bed_Number = %s"
+                    self.cursor.execute(update_bed_query, (values[1],))
+                    self.connection.commit()
+                    print("Is_empty column in bed table updated successfully.")
                 except pymysql.Error as e:
                     print("Error inserting data:", e)
-            elif result[:len(values)] != tuple(values):
-                update_query = "UPDATE {} SET {} WHERE {}".format(table_name, ', '.join([f"{col} = %s" for col in column_names]), ' AND '.join([f"{col} = %s" for col in column_names]))
-                try:
-                    self.cursor.execute(update_query, values + values)
-                    self.connection.commit()
-                    print("Data updated successfully.")
-                except pymysql.Error as e:
-                    print("Error updating data:", e)
+            else:
+                continue
+
 
     ##试过用循环+列数 只用一个函数来实现，但是在插入数据的过程中会出现问题，所以分开写了
 
