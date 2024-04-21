@@ -29,13 +29,13 @@ function Login() {
                         console.log(data.user);
                         break;
                     case 'tutor': // Assuming 'tutor' maps to 'mentor' as per your requirement
-                        navigate('/mentor');
+                        navigate('/tutor', { state: { user: data.user, role: data.role } });
                         break;
                     case 'manager':
                         navigate('/manager');
                         break;
                     case 'supervisor':
-                        navigate('/supervisor');
+                        navigate('/supervisor', { state: { user: data.user, role: data.role } });
                         break;
                     default:
                         alert('Invalid user type!');

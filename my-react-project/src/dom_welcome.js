@@ -4,9 +4,8 @@ import styles from './Dom_welcome.module.css';
 
 function Dom_welcome() {
   const location = useLocation();
-  const { roomid, userData } = location.state || {}; // Ensure defaults are set if no state is provided
+  const { roomid, userData } = location.state || {};
 
-  // Initialize studentInfo with values from userData
   const [studentInfo, setStudentInfo] = useState({
     name: userData ? userData[0] : "Unknown",
     studentNumber: userData ? userData[1] : "000000000",
@@ -19,7 +18,37 @@ function Dom_welcome() {
   };
 
   const handleFinishClick = () => {
-    console.log(introduction);
+    sendIntroductionToServer();
+  };
+
+  const sendIntroductionToServer = async () => {
+    const introductionData = {
+      id: userData[0], // user's ID from userData
+      introduction: introduction // user's introduction text
+    };
+
+    console.log(introductionData)
+
+    try {
+      const response = await fetch('http://localhost:5000/update_student_introduction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(introductionData)
+      });
+
+      if (response.ok) {
+        console.log('Introduction updated successfully!');
+        alert('介绍更新成功');
+      } else {
+        console.error('Failed to update introduction:', response.status);
+        alert('更新失败');
+      }
+    } catch (error) {
+      console.error('Error updating introduction:', error);
+      alert('发送错误');
+    }
   };
 
   return (
