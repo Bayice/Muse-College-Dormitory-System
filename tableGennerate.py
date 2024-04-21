@@ -87,7 +87,7 @@ if __name__ == '__main__':
         "Contact VARCHAR(50), "
         "Bed_Number VARCHAR(50), "
         "Password INT,"
-        "Student_introduction VARCHAR(255)"
+        "Student_introduction VARCHAR(255),"
         "FOREIGN KEY (Room_ID, Dormitory_ID, Floor_Number, Bed_Number) REFERENCES Bed(Room_ID, Dormitory_ID, Floor_Number, Bed_Number)"
     )
     db.create_table("Student", student_columns)
