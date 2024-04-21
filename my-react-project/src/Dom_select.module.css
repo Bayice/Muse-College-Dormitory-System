@@ -1,82 +1,138 @@
 /* Dom_select.module.css */
 .supervisorDashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
+  background-color: #f0f0f0; /* Assuming gray background is set globally */
+}
+
+.titleContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .welcomeText {
-  text-align: left;
-  margin-bottom: 20px; /* Space between the welcome text and the house layout */
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.roomInfo {
+  font-size: 1rem;
 }
 
 .content {
-  text-align: center;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .houseLayout {
-  display: inline-block;
-  border: 1px solid black;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
+  margin: auto;
+}
+
+.house {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  position: relative; /* To position door and window pseudo-elements */
+  border: 1px solid black;
+  padding: 40px; /* Adjust as needed to fit door and window */
+}
+
+.house::before {
+  content: "Door";
+  position: absolute;
+  top: -30px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px; /* Door width */
+  height: 30px; /* Door height */
+  background-color: #654321; /* Door color */
+  z-index: 10;
+}
+
+.house::after {
+  content: "Window";
+  position: absolute;
+  bottom: -20px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px; /* Window width */
+  height: 20px; /* Window height */
+  background-color: #87ceeb; /* Window color */
+  z-index: 10;
 }
 
 .row {
+  width: 100%;
   display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
+  justify-content: space-around;
 }
 
 .room {
-  width: 50px;
-  height: 50px;
-  line-height: 50px; /* Vertically center the text in the room */
-  margin: 0 10px;
-  display: inline-block;
-  text-align: center;
-  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  border: 1px solid #ddd;
   cursor: pointer;
-  background-color: green; /* Indicating availability */
-  position: relative; /* To position the checkmark absolutely within the room */
+  background-color: #90ee90;
+  position: relative;
+  border-radius: 4px;
+  font-size: 1.2rem;
 }
 
 .selected {
-  background-color: #4CAF50; /* Change background color to indicate selection */
+  background-color: #32cd32;
 }
 
 .checkmark {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center the checkmark */
-  color: white; /* Checkmark color */
-  font-size: 24px; /* Checkmark size */
+  top: 0;
+  right: 0;
+  font-size: 24px;
+  color: white;
 }
 
 .unavailable {
-  background-color: red; /* Indicating unavailability */
-  cursor: not-allowed; /* Not-allowed cursor style */
+  background-color: #f08080;
 }
 
 .welcomeAgainText {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  text-align: center;
+  margin: 20px 0;
 }
 
 .buttons {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .button {
   padding: 10px 20px;
-  margin: 0 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  cursor: pointer;
   background-color: #007bff;
   color: white;
+  cursor: pointer;
 }
 
 .button:hover {
   background-color: #0056b3;
-  opacity: 0.8; /* Button feedback on hover */
+  opacity: 0.8;
 }

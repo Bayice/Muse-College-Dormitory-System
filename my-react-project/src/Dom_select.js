@@ -36,10 +36,14 @@ function Dom_select() {
 
   const Room = ({ room }) => (
     <div
-      className={`${styles.room} ${!roomAvailability[room] ? styles.unavailable : selectedRoom === room ? styles.selected : ''}`}
+      className={`${styles.room} ${
+        !roomAvailability[room] ? styles.unavailable : selectedRoom === room ? styles.selected : ''
+      }`}
       onClick={() => handleRoomSelection(room)}
     >
+      <div className={styles.door}></div> {/* Door element at the top */}
       {room}
+      <div className={styles.window}></div> {/* Window element at the bottom */}
       {selectedRoom === room && roomAvailability[room] && <span className={styles.checkmark}>✓</span>}
     </div>
   );
@@ -70,7 +74,7 @@ function Dom_select() {
 
   return (
     <div className={styles.supervisorDashboard}>
-      <div className={styles.welcomeText}>Welcome</div>
+      <div className={styles.welcomeText}>Dorm XXX</div>
       <div className={styles.content}>
         <div className={styles.houseLayout}>
           <div className={styles.house}>
@@ -84,7 +88,7 @@ function Dom_select() {
             </div>
           </div>
         </div>
-        <div className={styles.welcomeAgainText}>Welcome again</div>
+        <div className={styles.welcomeAgainText}>Dorm</div>
         <div className={styles.buttons}>
           <button onClick={() => console.log('Back')}>Back</button>
           <button onClick={sendDataToServer}>Submit</button>
