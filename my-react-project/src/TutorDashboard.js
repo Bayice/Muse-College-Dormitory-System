@@ -1,7 +1,7 @@
 import React from 'react';
-import './MentorDashboard.css'; // 导入样式文件
+import './TutorDashboard.css'; // 导入样式文件
 
-function MentorDashboard() {
+function TutorDashboard() {
     // 模拟数据，宿舍信息和学生信息
     const dormInfo = {
         dormitory: "宿舍名称",
@@ -16,7 +16,7 @@ function MentorDashboard() {
 
     return (
         <div className="container"> {/* 应用样式 */}
-            <h1>Welcome, Mentor!</h1>
+            <h1>Welcome, Tutor!</h1>
 
             <div>
                 <h2>Tutor宿舍信息</h2>
@@ -43,4 +43,4 @@ function MentorDashboard() {
     );
 }
 
-export default MentorDashboard;
+export default TutorDashboard;

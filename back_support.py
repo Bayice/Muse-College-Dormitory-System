@@ -471,5 +471,34 @@ def view_room():
         if 'cur' in locals():
             cur.close()
 
+# 更新学生介绍的路由
+@app.route('/update_student_introduction', methods=['POST'])
+def update_student_introduction():
+    try:
+        data = request.json
+        if not data or 'id' not in data or 'introduction' not in data:
+            return jsonify({'success': False, 'message': 'Invalid request format'}), 400
+
+        student_id = data['id']
+        introduction = data['introduction']
+
+        # 获取数据库连接
+        cur = mysql.connection.cursor()
+
+        # 更新学生介绍
+        sql = "UPDATE Student SET student_introduction = %s WHERE Student_ID = %s"
+        cur.execute(sql, (introduction, student_id))
+        mysql.connection.commit()
+
+        return jsonify({'success': True, 'message': 'Student introduction updated successfully'}), 200
+    except Exception as e:
+        # 记录错误日志
+        app.logger.error(f"An error occurred: {str(e)}")
+        return jsonify({'success': False, 'message': 'An unexpected error occurred'}), 500
+    finally:
+        # 确保关闭数据库连接
+        if 'cur' in locals():
+            cur.close()
+            
 if __name__ == '__main__':
     app.run(debug=True)
