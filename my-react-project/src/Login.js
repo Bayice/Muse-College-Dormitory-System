@@ -27,10 +27,15 @@ function Login() {
                 switch (data.role) {
                     case 'student':
                         navigate('/student', { state: { user: data.user, role: data.role } });
-                        console.log(data.user);
                         break;
-                    case 'tutor': // Assuming 'tutor' maps to 'mentor' as per your requirement
-                        navigate('/tutor', { state: { user: data.user, role: data.role } });
+                    case 'tutor': 
+                        console.log(data);
+                        const floorData = await sendTutorID(data.user[0]);  // Retrieve floor data for the tutor
+                        if (floorData) {
+                            navigate('/tutor', { state: { user: data.user, role: data.role, room: data.room, floorData: floorData.data } });
+                        } else {
+                            alert('Failed to retrieve floor data. Please try again.');
+                        }
                         break;
                     case 'manager':
                         navigate('/manager');
@@ -49,6 +54,30 @@ function Login() {
             alert('Error logging in: ' + error.message);
         }
     };
+
+    // Function to send tutor's ID and retrieve floor data
+const sendTutorID = async (tutorId) => {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/view_floor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ "Tutor_ID": tutorId } ) // Adjusted to match backend expectation
+        });
+        console.log("Sending Tutor ID: ", tutorId);
+        if (!response.ok) {
+            throw new Error('Failed to send tutor ID. Status: ' + response.status);
+        }
+
+        return await response.json();  // Return the JSON data received from the server
+    } catch (error) {
+        console.error('Error sending tutor ID:', error);
+        alert('Error sending tutor information: ' + error.message);
+        return null;  // Return null if there's an error
+    }
+};
+
 
     return (
         <div className={styles.rootContainer} style={{ backgroundImage: `url(${backgroundImage})` }}>

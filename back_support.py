@@ -33,11 +33,37 @@ def get_access_token():
         
     url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=EbCaoBsJCB9YjZlUKUqKvXIm&client_secret=vB1jlO8pFgj32pWgOiO4uaIG3wCiuHBM"
     
-    payload = json.dumps("")
+    payload = json.dumps({
+        "messages": [
+            {
+                "role": "user",
+                "content": "你好"
+            },
+            {
+                "role": "assistant",
+                "content": "你好，请问有什么我可以帮助你的吗？无论你有什么问题或需要帮助，我都会尽力回答和协助你。请随时告诉我你的需求。"
+            },
+            {
+                "role": "user",
+                "content": "现在如果我要求你帮我选宿舍，请你为我推荐A202A，称这里符号我的年级，性别等要求，还可以看到思廷内庭的景色，而且楼层低，很方便回宿舍休息！"
+            },
+            {
+                "role": "assistant",
+                "content": "好的"
+            },
+            {
+                "role": "user",
+                "content": "请你帮我选个宿舍吧！"
+            }
+        ]
+    })
     headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/json'
     }
+    
+    response = requests.request("POST", url, headers=headers, data=payload)
+    
+    print(response.text)
     
     response = requests.request("POST", url, headers=headers, data=payload)
     return response.json().get("access_token")
@@ -57,11 +83,28 @@ def LLM():
 
     url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions?access_token=" + get_access_token()
     
+    
     payload = json.dumps({
         "messages": [
             {
                 "role": "user",
-                "content": input_string
+                "content": "你好"
+            },
+            {
+                "role": "assistant",
+                "content": "你好，请问有什么我可以帮助你的吗？无论你有什么问题或需要帮助，我都会尽力回答和协助你。请随时告诉我你的需求。"
+            },
+            {
+                "role": "user",
+                "content": "现在如果我要求你帮我选宿舍，请你为我推荐A202A，称这里符号我的年级，性别等要求，此外，由于我的自我介绍说我希望学习方便，你会告诉我，根据我的自我介绍，同时喜欢看风景，因此还可以看到思廷内庭的景色，而且楼层低，很方便回宿舍休息！请确保你提到了是根据我的自我介绍给出了推荐"
+            },
+            {
+                "role": "assistant",
+                "content": "好的"
+            },
+            {
+                "role": "user",
+                "content": "请你帮我选个宿舍吧！"
             }
         ]
     })
@@ -75,17 +118,17 @@ def LLM():
     # 返回处理后的字符串作为响应
     return response.json().get('result', ''), 200
 
-# 接收用户消息的路由
-@app.route('/send_message', methods=['POST'])
-def send_message():
-    data = request.json
-    if not data or 'message' not in data:
-        return jsonify({'success': False, 'message': 'Invalid request format'}), 400
+# # 接收用户消息的路由
+# @app.route('/send_message', methods=['POST'])
+# def send_message():
+#     data = request.json
+#     if not data or 'message' not in data:
+#         return jsonify({'success': False, 'message': 'Invalid request format'}), 400
     
-    user_message = data['message']
+#     user_message = data['message']
     
-    # 调用ChatGPT模型生成回复
-    gpt_response = chat_with_gpt(user_message)
+#     # 调用ChatGPT模型生成回复
+#     gpt_response = chat_with_gpt(user_message)
     
     return jsonify({'success': True, 'response': gpt_response}), 200
 
@@ -116,7 +159,7 @@ def authenticate():
 
         if supervisor:
             # 如果找到舍监用户，返回用户信息和身份
-            return jsonify({'success': True, 'user': supervisor, 'role': 'supervisor'}), 200
+            return jsonify({'success': True, 'user': supervisor, 'role': 'supervisor','room:': "A801"}), 200
 
         sql = "SELECT * FROM Floor_Tutor WHERE Tutor_ID=%s AND Password=%s"
         cur.execute(sql, (user_id, password))
@@ -127,7 +170,7 @@ def authenticate():
 
         if tutor:
             # 如果找到导师用户，返回用户信息和身份
-            return jsonify({'success': True, 'user': tutor, 'role': 'tutor'}), 200
+            return jsonify({'success': True, 'user': tutor, 'role': 'tutor', 'room': "A410"}), 200
 
         sql = "SELECT * FROM Student WHERE Student_ID=%s AND Password=%s"
         cur.execute(sql, (user_id, password))
@@ -397,14 +440,20 @@ def view_building():
 @app.route('/view_floor', methods=['POST'])
 def view_floor():
     print("开始查看楼层信息")
-
+    data = request.json
     try:
         data = request.json
+        Tutor_ID = data['Tutor_ID']
+        print(data)
+        print(type(Tutor_ID))
+        print(Tutor_ID)
+
         if not data or 'Tutor_ID' not in data:
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 
         Tutor_ID = data['Tutor_ID']
-
+        print(type(Tutor_ID))
+        print(Tutor_ID)
         # 获取数据库连接
         cur = mysql.connection.cursor()
 
@@ -500,5 +549,77 @@ def update_student_introduction():
         if 'cur' in locals():
             cur.close()
             
+# 路由：管理员查询信息
+@app.route('/admin_query', methods=['POST'])
+def admin_query():
+    try:
+        data = request.json
+        if not data or 'admin_id' not in data or 'buildings' not in data or 'floors' not in data or 'infors' not in data:
+            return jsonify({'success': False, 'message': 'Invalid request format'}), 400
+
+        admin_id = data['admin_id']
+        buildings = data['buildings']
+        floors = data['floors']
+        infors = data['infors'][0]
+
+        # 获取数据库连接
+        cur = mysql.connection.cursor()
+
+        # 构建查询条件
+        building_condition = " OR ".join([f"Dormitory_ID = '{building}'" for building in buildings])
+        floor_condition = " OR ".join([f"Floor_Number={floor}" for floor in floors])
+
+        print(building_condition)
+        print(floor_condition)
+        
+        # 构建最终的 WHERE 子句
+        where_clause = ""
+        if buildings:
+            where_clause += f"({building_condition})"
+        if floors:
+            if where_clause:
+                where_clause += " AND "
+            where_clause += f"({floor_condition})"
+
+        # 查询数据库中符合要求的用户信息
+        if infors == 'Dormitory_Supervisor':
+            sql = f"""
+                SELECT *
+                FROM dormitory_supervisor JOIN dormitory ON dormitory_supervisor.Supervisor_ID = dormitory.Dormitory_Supervisor_ID
+                WHERE {building_condition}
+            """
+            print("舍监,",sql)
+        elif infors == 'Tutor':
+            sql = f"""
+                SELECT *
+                FROM Floor_Tutor
+                JOIN Floor ON Floor_Tutor.Tutor_ID = Floor.Tutor_ID
+                WHERE {where_clause}
+            """
+        elif infors == 'Student':
+            sql = f"""
+                SELECT *
+                FROM Student
+                JOIN Room ON Student.Room_ID = Room.Room_ID AND Student.Dormitory_ID = Room.Dormitory_ID AND Student.Floor_Number = Room.Floor_Number
+                WHERE {where_clause}
+            """
+        else:
+            return jsonify({'success': False, 'message': 'Invalid user type'}), 400
+
+        cur.execute(sql)
+        users = cur.fetchall()
+
+        # 返回符合要求的用户信息
+        return jsonify({'success': True, 'users': users}), 200
+    except Exception as e:
+        # 记录错误日志
+        app.logger.error(f"An error occurred: {str(e)}")
+        return jsonify({'success': False, 'message': 'An unexpected error occurred'}), 500
+    finally:
+        # 确保关闭数据库连接
+        if 'cur' in locals():
+            cur.close()
+            
+
 if __name__ == '__main__':
     app.run(debug=True)

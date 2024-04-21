@@ -1,17 +1,16 @@
-// SelectionPage.js
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './SelectionPage.module.css'; // 注意模块化 CSS 的导入方式
 
-function SelectionPage() {
+function SupervisorDashboard() {
   // 从 location.state 中正确提取 userData
   const location = useLocation();
+  const navigate = useNavigate();
   const userData = location.state ? location.state.user : null;
   const [buildings, setBuildings] = useState([]);
   const [infors, setInfors] = useState([]);
   const [floors, setFloors] = useState([]);
-  const [infor, setInfor] = useState([]);
-
+  console.log(userData[0]);
   const handleBuildingChange = (event) => {
     const selectedBuilding = event.target.value;
     if (buildings.includes(selectedBuilding)) {
@@ -42,30 +41,33 @@ function SelectionPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const studentType = userData ? userData[2] : null; // Assuming the student type is at index 2
+  
+    // Extracting the supervisor ID, assuming it is at index 0 of userData
+    const supervisorId = userData ? userData[0] : null; 
+  
     const postData = {
       buildings,
       floors,
-      infor,
-      student_type: studentType
+      infors,  // Using the state variable directly which holds the user-selected information types
+      supervisor_id: supervisorId  // Including the supervisor ID in the post data
     };
-
-    console.log("Submitting the following data to the backend:", postData);  // 打印提交的数据
-
+  
+    console.log("Submitting the following data to the backend:", postData);  // Logging the data being submitted
+  
     try {
-      const response = await fetch('http://127.0.0.1:5000/search_rooms', {
+      const response = await fetch('http://127.0.0.1:5000/view_building', {  // Updated the API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(postData)
       });
-
+  
       if (response.ok) {
-        const rooms = await response.json();
-        console.log(rooms);
+        const info = await response.json();
+        console.log(info);
         alert('Rooms fetched successfully!');
+        navigate('/Sup-select-output', { state: { info: info } });
       } else {
         throw new Error('Failed to fetch rooms. Status: ' + response.status);
       }
@@ -139,4 +141,4 @@ function SelectionPage() {
   );
 }  
 
-export default SelectionPage;
+export default SupervisorDashboard;

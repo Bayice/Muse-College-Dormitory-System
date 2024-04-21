@@ -10,8 +10,9 @@ import SelectionPage from './SelectionPage';
 import SelectionOutput from './SelectionOutput';
 import Dom_select from './Dom_select';
 import Dom_welcome from './Dom_welcome';
+import SupSelectOutput from './SupSelectOutput';
+import RoomDetails from './RoomDetails'; 
 
-//1111
 function App() {
   return (
     <Router>
@@ -26,6 +27,8 @@ function App() {
         <Route path="/selection-output" element={<SelectionOutput />} />
         <Route path="/Dom_select" element={<Dom_select />} />
         <Route path="/Dom_welcome" element={<Dom_welcome />} />
+        <Route path="/Sup-select-output" element={<SupSelectOutput />} />
+        <Route path="/room/:roomNumber" element={<RoomDetails />} />
       </Routes>
     </Router>
   );

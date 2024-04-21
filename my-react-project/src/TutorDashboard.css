@@ -68,3 +68,32 @@
 .container .btn:hover {
     background-color: #0B5ED7; /* 悬停时更深的蓝色 */
 }
+
+.room-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px; /* Adjust this value based on your design needs */
+}
+
+.room-detail {
+    flex: 0 0 16%; /* Sets the flex basis to 16% - slightly less than 1/6th to accommodate margins/paddings */
+    margin-bottom: 10px; /* Adds some space below each row */
+}
+
+.room-detail button {
+    width: 100%; /* Make button expand to fill the .room-detail container */
+    padding: 8px;
+    background-color: #007bff; /* Example button color, similar to Bootstrap's primary color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.room-detail button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
