@@ -51,16 +51,7 @@ function Login() {
     };
 
     return (
-        <div style={{ 
-            backgroundImage: `url(${backgroundImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-            backgroundRepeat: 'no-repeat',
-            minHeight: '100vh', // Full height of the viewport
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        }}>
+        <div className={styles.rootContainer} style={{ backgroundImage: `url(${backgroundImage})` }}>
             <div className={styles.container}>
                 <h2 className={styles.title}>宿舍管理系统登录</h2>
                 <form onSubmit={handleSubmit} className={styles.form}>

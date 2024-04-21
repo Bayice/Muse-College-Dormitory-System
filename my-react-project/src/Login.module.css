@@ -1,15 +1,24 @@
 /* Login.module.css */
+.rootContainer {
+  position: relative;
+  background-image: url(bg.png); /* 这里应用动态背景 */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* 全视口高度 */
+}
+
 .container {
-    justify-content: center;
-    align-items: center;
-    max-width: 800px;
-    padding: 60px;
-    margin: 250px auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    border: 1px solid #eeeeee;
-  }
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%; /* 根据需要调整 */
+  max-width: 500px; /* 防止容器过大 */
+  padding: 20px;
+  background: rgba(255, 255, 255, 1); /* 背景半透明，增强可读性 */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
   
   .title {
     text-align: center;
