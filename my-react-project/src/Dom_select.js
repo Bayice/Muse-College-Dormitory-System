@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Dom_select.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function Dom_select() {
   const location = useLocation();
+  const navigate = useNavigate();
   const roomid = location.state ? location.state.roomid : null;
   const roomsStudentsData = location.state ? location.state.rooms_students : [];
   const userData = location.state ? location.state.user : null;
@@ -64,6 +66,7 @@ function Dom_select() {
       if (response.ok) {
         console.log('Data sent successfully!');
         alert('成功修改');
+        navigate('/Dom_welcome', { state: { roomid, userData } });
       } else {
         console.error('Failed to send data:', response.status);
       }
@@ -74,7 +77,7 @@ function Dom_select() {
 
   return (
     <div className={styles.supervisorDashboard}>
-      <div className={styles.welcomeText}>Dorm XXX</div>
+      <div className={styles.welcomeText}>Dorm {roomid}</div>
       <div className={styles.content}>
         <div className={styles.houseLayout}>
           <div className={styles.house}>

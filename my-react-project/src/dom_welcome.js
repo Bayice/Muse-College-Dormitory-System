@@ -1,12 +1,17 @@
-// Dom_welcome.js
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from './Dom_welcome.module.css';
 
 function Dom_welcome() {
+  const location = useLocation();
+  const { roomid, userData } = location.state || {}; // Ensure defaults are set if no state is provided
+
+  // Initialize studentInfo with values from userData
   const [studentInfo, setStudentInfo] = useState({
-    name: "John Doe",
-    studentNumber: "123456789",
+    name: userData ? userData[0] : "Unknown",
+    studentNumber: userData ? userData[1] : "000000000",
   });
+
   const [introduction, setIntroduction] = useState('');
 
   const handleInputChange = (event) => {
@@ -20,7 +25,7 @@ function Dom_welcome() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Welcome to Dorm XXX</h1>
+        <h1 className={styles.title}>Welcome to Dorm {roomid || "Unknown"}</h1>
         <p className={styles.information}>{studentInfo.name} - {studentInfo.studentNumber}</p>
         <div>
           <label htmlFor="introduceInput" className={styles.introductionLabel}>Introduce yourself:</label>
