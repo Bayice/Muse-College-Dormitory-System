@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
+import backgroundImage from './bg.png';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -50,33 +51,44 @@ function Login() {
     };
 
     return (
-        <div className={styles.container}>
-            <h2 className={styles.title}>宿舍管理系统登录</h2>
-            <form onSubmit={handleSubmit} className={styles.form}>
-                <div className={styles.formGroup}>
-                    <label htmlFor="username" className={styles.label}>用户名</label>
-                    <input
-                        type="text"
-                        id="username"
-                        placeholder="请输入用户名"
-                        value={username}
-                        onChange={e => setUsername(e.target.value)}
-                        className={styles.input}
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label htmlFor="password" className={styles.label}>密码</label>
-                    <input
-                        type="password"
-                        id="password"
-                        placeholder="请输入密码"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        className={styles.input}
-                    />
-                </div>
-                <button type="submit" className={styles.btnPrimary}>登录</button>
-            </form>
+        <div style={{ 
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat',
+            minHeight: '100vh', // Full height of the viewport
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <div className={styles.container}>
+                <h2 className={styles.title}>宿舍管理系统登录</h2>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="username" className={styles.label}>用户名</label>
+                        <input
+                            type="text"
+                            id="username"
+                            placeholder="请输入用户名"
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
+                            className={styles.input}
+                        />
+                    </div>
+                    <div className={styles.formGroup}>
+                        <label htmlFor="password" className={styles.label}>密码</label>
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="请输入密码"
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                            className={styles.input}
+                        />
+                    </div>
+                    <button type="submit" className={styles.btnPrimary}>登录</button>
+                </form>
+            </div>
         </div>
     );
 }
