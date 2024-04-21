@@ -1,0 +1,70 @@
+/* 整体容器风格 */
+.container {
+    max-width: 600px; /* 修改最大宽度 */
+    padding: 30px;
+    margin: 50px auto; /* 调整外边距 */
+    background-color: #f9f9f9; /* 浅灰色背景 */
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* 调整阴影 */
+    border: 1px solid #dddddd; /* 更浅的边框 */
+}
+
+/* 标题风格 */
+.container h1 {
+    text-align: center;
+    color: #0D6EFD; /* 蓝色调的标题 */
+    margin-bottom: 20px;
+}
+
+.container h2 {
+    color: #333333; /* 深灰色标题 */
+}
+
+/* 房间信息风格 */
+.container .room-info {
+    margin-bottom: 30px;
+}
+
+.container .room-info h2 {
+    color: #0D6EFD; /* 蓝色标题 */
+    margin-bottom: 10px;
+}
+
+.container .room-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.container .room-info li {
+    margin-bottom: 10px;
+}
+
+.container .room-info li strong {
+    color: #333333; /* 深灰色字体 */
+}
+
+.container .room-info li ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.container .room-info li ul li {
+    color: #666666; /* 中灰色字体 */
+}
+
+/* 按钮风格 */
+.container .btn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    background-color: #0D6EFD; /* 蓝色按钮 */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.container .btn:hover {
+    background-color: #0B5ED7; /* 悬停时更深的蓝色 */
+}

@@ -1,0 +1,88 @@
+/* SelectionOutput.module.css */
+
+
+.container {
+  display: flex;
+  width: 100%;
+  font-family: 'Arial', sans-serif; /* Example of setting a common font */
+}
+
+.sidebar {
+  flex-basis: 20%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin-right: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar li {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 18px; /* Larger font size for sidebar items */
+  font-weight: bold; /* Bold font weight for emphasis */
+}
+
+.sidebar li:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.rooms-display {
+  flex-grow: 1;
+  max-width: 75%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.rooms-display h1 {
+  color: #333;
+  font-size: 24px; /* Larger font size for headers */
+  margin-bottom: 20px;
+}
+
+.room {
+  margin-bottom: 10px;
+}
+
+.room label {
+  font-size: 16px; /* Adjust label font size */
+}
+
+.noRooms {
+  color: #888;
+  font-style: italic;
+}
+
+.submitButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px; /* Larger font size for buttons */
+  display: block; /* Make the button expand to the width of container */
+  width: auto; /* Set width to auto */
+  text-align: center;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+  margin-left: auto; /* Align button to the right */
+}
+
+.submitButton:hover {
+  background-color: #218838;
+}

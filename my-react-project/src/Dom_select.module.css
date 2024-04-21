@@ -1,0 +1,82 @@
+/* Dom_select.module.css */
+.supervisorDashboard {
+  padding: 20px;
+}
+
+.welcomeText {
+  text-align: left;
+  margin-bottom: 20px; /* Space between the welcome text and the house layout */
+}
+
+.content {
+  text-align: center;
+}
+
+.houseLayout {
+  display: inline-block;
+  border: 1px solid black;
+  margin: auto;
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.room {
+  width: 50px;
+  height: 50px;
+  line-height: 50px; /* Vertically center the text in the room */
+  margin: 0 10px;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: green; /* Indicating availability */
+  position: relative; /* To position the checkmark absolutely within the room */
+}
+
+.selected {
+  background-color: #4CAF50; /* Change background color to indicate selection */
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the checkmark */
+  color: white; /* Checkmark color */
+  font-size: 24px; /* Checkmark size */
+}
+
+.unavailable {
+  background-color: red; /* Indicating unavailability */
+  cursor: not-allowed; /* Not-allowed cursor style */
+}
+
+.welcomeAgainText {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.buttons {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  opacity: 0.8; /* Button feedback on hover */
+}

@@ -1,0 +1,45 @@
+/* StudentDashboard.module.css */
+.pageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Full viewport height */
+    width: 100%; /* Full width */
+}
+
+.containerStyle {
+    width: 700px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: Adds shadow for better visibility */
+}
+
+.divMargin {
+    margin: 20px;
+}
+
+.inputMarginPadding {
+    margin: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.buttonStyle {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buttonHover:hover {
+    background-color: #0056b3;
+}
+
+.alertMargin {
+    margin-top: 20px;
+}

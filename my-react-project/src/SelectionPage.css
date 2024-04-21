@@ -1,0 +1,39 @@
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.form-section {
+    display: flex;
+    align-items: center;  /* 垂直居中 */
+    margin-bottom: 10px;
+}
+
+.form-section > div {
+    margin-right: 20px;  /* 每个选择区域之间的间隔 */
+}
+
+.form-section label {
+    margin-left: 5px;  /* Checkbox 或 Radio 与其标签的间隔 */
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.multi-select-tip {
+    margin-left: 10px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+
