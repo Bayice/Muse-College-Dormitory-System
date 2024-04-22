@@ -6,6 +6,11 @@
   justify-content: center;
   height: 100vh;
   background-color: #f7f7f7; /* 背景色 */
+  background-image: url('./bg.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh; /* 全视口高度 */
 }
 
 .card {

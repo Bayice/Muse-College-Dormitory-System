@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Dom_select.module.css';
 import { useNavigate } from 'react-router-dom';
+import backgroundImage from './bg.png';
 
 function Dom_select() {
   const location = useLocation();
@@ -76,6 +77,15 @@ function Dom_select() {
   };
 
   return (
+    <div className={styles.supervisorDashboard} style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover', // 确保图片覆盖整个元素
+      backgroundPosition: 'center', // 居中图片
+      backgroundRepeat: 'no-repeat', // 不重复图片
+      minHeight: '100vh', // 至少高度为视窗高度
+      width: '100vw' // 宽度为视窗宽度
+    }}>
+
     <div className={styles.supervisorDashboard}>
       <div className={styles.welcomeText}>Dorm {roomid}</div>
       <div className={styles.content}>
@@ -97,6 +107,7 @@ function Dom_select() {
           <button onClick={sendDataToServer}>Submit</button>
         </div>
       </div>
+    </div>
     </div>
   );
 }

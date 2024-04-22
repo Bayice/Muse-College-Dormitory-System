@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './SelectionPage.module.css'; // 注意模块化 CSS 的导入方式
+import backgroundImage from './bg.png';
 
 function SelectionPage() {
   // 从 location.state 中正确提取 userData
@@ -64,6 +65,8 @@ function SelectionPage() {
   };
 
   return (
+    <div className={styles.supervisorDashboard} style={{ backgroundImage: `url(${backgroundImage})` }}>
+
     <div className={styles.container}>
       <h1 className={styles.title}>舍监宿舍信息查询管理</h1>
       <form onSubmit={handleSubmit}>
@@ -106,6 +109,7 @@ function SelectionPage() {
 
         <button type="submit" className={styles.submitButton}>开始查询</button>
       </form>
+    </div>
     </div>
   );
 }  

@@ -148,36 +148,49 @@ def authenticate():
 
         # 获取数据库连接
         cur = mysql.connection.cursor()
+        
+         #***************************************#
+        print("开始搜索管理员")
+        
+        # 查询数据库中是否有匹配的管理员
+        sql = "SELECT * FROM admin WHERE Admin_ID=%s AND Password=%s"
+        cur.execute(sql, (user_id, password))
+        admin = cur.fetchone()
 
+        if admin:
+            # 如果找到舍监用户，返回用户信息和身份
+            return jsonify({'success': True, 'user': admin, 'role': 'admin'}), 200
+
+        #***************************************#
+        print("开始搜索舍监")
+        
         # 查询数据库中是否有匹配的用户
         sql = "SELECT * FROM Dormitory_Supervisor WHERE Supervisor_ID=%s AND Password=%s"
         cur.execute(sql, (user_id, password))
         supervisor = cur.fetchone()
 
-        #***************************************#
-        print("开始搜索舍监")
-
         if supervisor:
             # 如果找到舍监用户，返回用户信息和身份
-            return jsonify({'success': True, 'user': supervisor, 'role': 'supervisor','room:': "A801"}), 200
+            return jsonify({'success': True, 'user': supervisor, 'role': 'supervisor'}), 200
 
+
+        #***************************************#
+        print("开始搜索导师")
         sql = "SELECT * FROM Floor_Tutor WHERE Tutor_ID=%s AND Password=%s"
         cur.execute(sql, (user_id, password))
         tutor = cur.fetchone()
 
-        #***************************************#
-        print("开始搜索导师")
-
         if tutor:
             # 如果找到导师用户，返回用户信息和身份
-            return jsonify({'success': True, 'user': tutor, 'role': 'tutor', 'room': "A410"}), 200
+            return jsonify({'success': True, 'user': tutor, 'role': 'tutor'}), 200
 
-        sql = "SELECT * FROM Student WHERE Student_ID=%s AND Password=%s"
-        cur.execute(sql, (user_id, password))
-        student = cur.fetchone()
 
         #***************************************#
         print("开始搜索学生")
+        
+        sql = "SELECT * FROM Student WHERE Student_ID=%s AND Password=%s"
+        cur.execute(sql, (user_id, password))
+        student = cur.fetchone()
 
         if student:
             # 如果找到学生用户，返回用户信息和身份
@@ -404,7 +417,9 @@ def view_building():
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 
         Dormitory_Supervisor_ID = data['Dormitory_Supervisor_ID']
-
+        floors = data['floors']
+        infors = data['infors'][0]
+        
         # 获取数据库连接
         cur = mysql.connection.cursor()
 
@@ -414,18 +429,48 @@ def view_building():
         if not dormitory_id:
             return jsonify({'success': False, 'message': 'No dormitory found for this supervisor'}), 404
 
-        # 第二步：查询所有相关的房间ID
-        cur.execute("SELECT Room_ID FROM room WHERE Dormitory_ID = %s", (dormitory_id[0],))
-        room_ids = cur.fetchall()
+        # 构建查询条件
+        print(dormitory_id[0])
+        dormitory_id = dormitory_id[0]
+        building_condition = f"Dormitory_ID = '{dormitory_id}'"
+        floor_condition = " OR ".join([f"Floor_Number={floor}" for floor in floors])
 
-        # 第三步：查询所有相关的学生信息
-        students_info = []
-        for (room_id,) in room_ids:
-            cur.execute("SELECT * FROM student WHERE Room_ID = %s", (room_id,))
-            student_data = cur.fetchall()
-            students_info.extend(student_data)
+        print(building_condition)
+        print(floor_condition)
+        
+        # 构建最终的 WHERE 子句
+        where_clause = building_condition
+        if floors:
+            if where_clause:
+                where_clause += " AND "
+            where_clause += f"({floor_condition})"
+            
+        #************************#
+        print("查询语句")
+        print(where_clause)
 
-        return jsonify({'success': True, 'data': students_info}), 200
+        # 查询数据库中符合要求的用户信息
+        if infors == 'Tutor':
+            sql = f"""
+                SELECT *
+                FROM Floor_Tutor
+                JOIN Floor ON Floor_Tutor.Tutor_ID = Floor.Tutor_ID
+                WHERE {where_clause}
+            """
+        elif infors == 'Student':
+            sql = f"""
+                SELECT *
+                FROM Student
+                WHERE {where_clause}
+            """
+        else:
+            return jsonify({'success': False, 'message': 'Invalid user type'}), 400
+
+        cur.execute(sql)
+        users = cur.fetchall()
+
+        # 返回符合要求的用户信息
+        return jsonify({'success': True, 'users': users}), 200
     except Exception as e:
         # 记录错误日志
         app.logger.error(f"An error occurred: {str(e)}")
@@ -434,20 +479,16 @@ def view_building():
         # 确保关闭数据库连接
         if 'cur' in locals():
             cur.close()
+            
 
 
 # tutor查看自己所管理的楼层的学生信息的路由
 @app.route('/view_floor', methods=['POST'])
 def view_floor():
     print("开始查看楼层信息")
-    data = request.json
+
     try:
         data = request.json
-        Tutor_ID = data['Tutor_ID']
-        print(data)
-        print(type(Tutor_ID))
-        print(Tutor_ID)
-
         if not data or 'Tutor_ID' not in data:
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 
@@ -554,10 +595,9 @@ def update_student_introduction():
 def admin_query():
     try:
         data = request.json
-        if not data or 'admin_id' not in data or 'buildings' not in data or 'floors' not in data or 'infors' not in data:
+        if not data or 'buildings' not in data or 'floors' not in data or 'infors' not in data:
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 
-        admin_id = data['admin_id']
         buildings = data['buildings']
         floors = data['floors']
         infors = data['infors'][0]
@@ -600,7 +640,6 @@ def admin_query():
             sql = f"""
                 SELECT *
                 FROM Student
-                JOIN Room ON Student.Room_ID = Room.Room_ID AND Student.Dormitory_ID = Room.Dormitory_ID AND Student.Floor_Number = Room.Floor_Number
                 WHERE {where_clause}
             """
         else:
