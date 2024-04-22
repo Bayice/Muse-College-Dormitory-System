@@ -77,7 +77,14 @@ function Dom_select() {
   };
 
   return (
-    <div className={styles.supervisorDashboard} style={{ backgroundImage: `url(${backgroundImage})` }}>
+    <div className={styles.supervisorDashboard} style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover', // 确保图片覆盖整个元素
+      backgroundPosition: 'center', // 居中图片
+      backgroundRepeat: 'no-repeat', // 不重复图片
+      minHeight: '100vh', // 至少高度为视窗高度
+      width: '100vw' // 宽度为视窗宽度
+    }}>
 
     <div className={styles.supervisorDashboard}>
       <div className={styles.welcomeText}>Dorm {roomid}</div>

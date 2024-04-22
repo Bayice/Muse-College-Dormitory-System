@@ -15,15 +15,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 50vh;
-    min-width: 10vw;
-    background: rgba(255, 255, 255, 0.9); /* For a semi-transparent overlay */
+    min-height: 30vh;
+    min-width: 1vw;
+    background: rgba(255, 255, 255, 0.7); /* For a semi-transparent overlay */
     backdrop-filter: blur(10px); /* Optional: only works in some browsers */
 
     border-radius: 15px;
-    padding: 2rem;
-    margin: 2rem;
-    width: 80%; /* Or fixed width */
+    padding: 1rem;
+    margin: 1rem;
+    width: 30%; /* Or fixed width */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px); /* Frosted glass effect */
   }

@@ -85,7 +85,7 @@ function SelectionPage() {
   };
 
   return (
-    <div className="container" style={{ backgroundImage: `url(${backgroundImage})` }}> {/* Inline style to apply background image */}
+  <div className="background_page" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', minHeight: '100vh'}}> {/* Inline style to apply background image */}
 
     <div className={styles.container}>
       <h1 className={styles.title}>宿舍筛选</h1>
@@ -174,7 +174,7 @@ function SelectionPage() {
         <button type="submit" className={styles.submitButton}>开始筛选</button>
       </form>
     </div>
-    </div>
+  </div>
   );
 }
 

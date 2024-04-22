@@ -1,28 +1,33 @@
 /* 整体容器风格 */
-
-.container {
-    max-width: 600px;
-    padding: 30px;
-    margin: 50px auto;
-    background-color: #f9f9f9; /* You may not need this if the background image should cover everything */
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    border: 1px solid #dddddd;
+.outer-container {
+    background-color: #f9f9f9; /* 设置容器背景颜色 */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    position: relative; /* Needed to position any absolute children */
-  }
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-width: 800px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dddddd;
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明白色背景 */
+}
 
 /* 标题风格 */
 .container h1 {
     text-align: center;
-    color: #0D6EFD; /* 蓝色调的标题 */
+    color: #0D6EFD;
     margin-bottom: 20px;
 }
 
 .container h2 {
-    color: #333333; /* 深灰色标题 */
+    color: #333333;
 }
 
 /* 房间信息风格 */
@@ -31,7 +36,7 @@
 }
 
 .container .room-info h2 {
-    color: #0D6EFD; /* 蓝色标题 */
+    color: #0D6EFD;
     margin-bottom: 10px;
 }
 
@@ -45,7 +50,7 @@
 }
 
 .container .room-info li strong {
-    color: #333333; /* 深灰色字体 */
+    color: #333333;
 }
 
 .container .room-info li ul {
@@ -54,43 +59,25 @@
 }
 
 .container .room-info li ul li {
-    color: #666666; /* 中灰色字体 */
+    color: #666666;
 }
 
 /* 按钮风格 */
-.container .btn {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    background-color: #0D6EFD; /* 蓝色按钮 */
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-}
-
-.container .btn:hover {
-    background-color: #0B5ED7; /* 悬停时更深的蓝色 */
-}
-
-.room-info {
+.room-details {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px; /* Adjust this value based on your design needs */
+    justify-content: space-between;
 }
 
 .room-detail {
-    flex: 0 0 16%; /* Sets the flex basis to 16% - slightly less than 1/6th to accommodate margins/paddings */
-    margin-bottom: 10px; /* Adds some space below each row */
+    flex: 0 0 calc(33.333% - 20px); /* 一行三个，减去外边距 */
+    margin-bottom: 20px;
 }
 
 .room-detail button {
-    width: 100%; /* Make button expand to fill the .room-detail container */
+    width: 100%;
     padding: 8px;
-    background-color: #007bff; /* Example button color, similar to Bootstrap's primary color */
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 4px;
@@ -100,5 +87,5 @@
 }
 
 .room-detail button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #0056b3;
 }
