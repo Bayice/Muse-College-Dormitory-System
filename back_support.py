@@ -593,8 +593,12 @@ def update_student_introduction():
 # 路由：管理员查询信息
 @app.route('/admin_query', methods=['POST'])
 def admin_query():
+    data = request.json
+    print(data)
+    print(data['buildings'])
     try:
         data = request.json
+        print(data)
         if not data or 'buildings' not in data or 'floors' not in data or 'infors' not in data:
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 

@@ -23,7 +23,7 @@ print(response.json())
 # # 请求的数据
 # data = {
 #     'buildings': ['MuseCollege-A'],  # 选择的楼栋列表
-#     'floors': [2],  # 选择的楼层列表
+#     'floors': [2,3],  # 选择的楼层列表
 #     'infors': ['Student'],  # 用户类型（'Dormitory_Supervisor', 'Tutor', 'Student'）
 # }
 

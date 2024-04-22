@@ -37,11 +37,11 @@ function Login() {
                             alert('Failed to retrieve floor data. Please try again.');
                         }
                         break;
-                    case 'manager':
-                        navigate('/manager');
+                    case 'admin':
+                        navigate('/supervisor', { state: { user: data.user, role: data.role } });
                         break;
                     case 'supervisor':
-                        navigate('/supervisor', { state: { user: data.user, role: data.role } });
+                        navigate('/manager', { state: { user: data.user, role: data.role } });
                         break;
                     default:
                         alert('Invalid user type!');

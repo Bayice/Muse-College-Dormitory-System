@@ -1,16 +1,14 @@
-// SelectionPage.js
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './SelectionPage.module.css'; // 注意模块化 CSS 的导入方式
 import backgroundImage from './bg.png';
 
 function SelectionPage() {
-  // 从 location.state 中正确提取 userData
   const location = useLocation();
   const userData = location.state ? location.state.user : null;
   const [infors, setInfors] = useState([]);
   const [floors, setFloors] = useState([]);
-  const [infor, setInfor] = useState([]);
+  const navigate = useNavigate(); // 使用 useNavigate hook 进行页面导航
 
   const handleFloorChange = (event) => {
     const selectedFloor = parseInt(event.target.value, 10);
@@ -33,17 +31,16 @@ function SelectionPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const studentType = userData ? userData[2] : null; // Assuming the student type is at index 2
     const postData = {
       floors,
-      infor,
-      student_type: studentType
+      infors,
+      Dormitory_Supervisor_ID: userData[0]
     };
 
     console.log("Submitting the following data to the backend:", postData);  // 打印提交的数据
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/search_rooms', {
+      const response = await fetch('http://127.0.0.1:5000/view_building', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -52,9 +49,11 @@ function SelectionPage() {
       });
 
       if (response.ok) {
-        const rooms = await response.json();
-        console.log(rooms);
+        const info = await response.json();
+        console.log(info);
         alert('Rooms fetched successfully!');
+        // 页面导航到新页面
+        navigate('/man-select-output', { state: { info: info, role: postData.infors } });
       } else {
         throw new Error('Failed to fetch rooms. Status: ' + response.status);
       }
@@ -66,11 +65,9 @@ function SelectionPage() {
 
   return (
     <div className={styles.supervisorDashboard} style={{ backgroundImage: `url(${backgroundImage})` }}>
-
     <div className={styles.container}>
       <h1 className={styles.title}>舍监宿舍信息查询管理</h1>
       <form onSubmit={handleSubmit}>
-
         <div className={styles.formSection}>
           <strong>请选择您要查看的楼层:</strong>
           {[1, 2, 3, 4, 5, 6, 7, 8].map((floor) => (

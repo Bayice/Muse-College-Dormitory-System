@@ -49,13 +49,12 @@ function SupervisorDashboard() {
       buildings,
       floors,
       infors,  // Using the state variable directly which holds the user-selected information types
-      supervisor_id: supervisorId  // Including the supervisor ID in the post data
     };
   
     console.log("Submitting the following data to the backend:", postData);  // Logging the data being submitted
   
     try {
-      const response = await fetch('http://127.0.0.1:5000/view_building', {  // Updated the API endpoint
+      const response = await fetch('http://127.0.0.1:5000/admin_query', {  // Updated the API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -67,7 +66,7 @@ function SupervisorDashboard() {
         const info = await response.json();
         console.log(info);
         alert('Rooms fetched successfully!');
-        navigate('/Sup-select-output', { state: { info: info } });
+        navigate('/Sup-select-output', { state: { info: info, role: postData.infors } });
       } else {
         throw new Error('Failed to fetch rooms. Status: ' + response.status);
       }
@@ -119,7 +118,7 @@ function SupervisorDashboard() {
   
         <div className={styles.formSection}>
           <strong>选择信息:</strong>
-          {['Manager', 'Tutor', 'Student'].map((infor) => (
+          {['Dormitory_Supervisor', 'Tutor', 'Student'].map((infor) => (
             <div key={infor} className={styles.inputGroup}>
               <input
                 type="checkbox"
