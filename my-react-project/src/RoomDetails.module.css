@@ -1,0 +1,60 @@
+/* RoomDetails.module.css */
+.pageBackground {
+    background-image: url('./bg.png'); /* Replace with the correct path to your image */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.roomDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+    min-width: 10vw;
+    background: rgba(255, 255, 255, 0.9); /* For a semi-transparent overlay */
+    backdrop-filter: blur(10px); /* Optional: only works in some browsers */
+
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem;
+    width: 80%; /* Or fixed width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .listItem {
+    background-color: #f7f7f7;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #444;
+  }
+  
+  @media (max-width: 768px) {
+    .roomDetails {
+      width: 95%;
+      padding: 1rem;
+      margin: 1rem;
+    }
+  }
+  
