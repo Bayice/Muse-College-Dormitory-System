@@ -1,0 +1,107 @@
+/* SelectionPage.module.css */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    min-height: 100vh;
+}
+
+/* Add a new class for the main background */
+.backgroundContainer {
+    background-image: url('bg.png'); /* Update with the correct path */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Full viewport height */
+}
+
+.title {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.formSection {
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.inputGroup {
+    margin: 10px 0;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.input {
+    accent-color: #007bff;
+}
+
+.label {
+    margin-left: 10px;
+    font-weight: 500;
+    color: #333;
+}
+
+.multiSelectTip {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+.submitButton {
+    padding: 12px 30px;
+    background-color: #ffa726;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    box-shadow: none;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 20px;
+    cursor: pointer;
+    display: block; /* Make the button block level to fill container */
+    width: 100%;
+}
+
+.submitButton {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #0D6EFD; /* Existing blue background */
+    color: white; /* Existing text color */
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for color and background */
+}
+
+
+/* SelectionPage.module.css */
+
+.userInputContainer {
+    margin-top: 20px;
+  }
+  
+  .userInput {
+    padding: 10px;
+    width: 80%;
+    margin-right: 10px;
+  }
+  
+  .userText {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+
+  
+
+
+
+
+

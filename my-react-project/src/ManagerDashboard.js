@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+
+import styles from './ManagerDashboard.module.css'; // 注意模块化 CSS 的导入方式
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from './SelectionPage.module.css'; // 注意模块化 CSS 的导入方式
+
 import backgroundImage from './bg.png';
 
 function SelectionPage() {

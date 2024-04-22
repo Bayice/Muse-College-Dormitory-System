@@ -1,10 +1,52 @@
 /* SelectionOutput.module.css */
+.mainContainer {
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  height: 100vh; /* Full viewport height */
+  background-size: cover; /* Cover the entire container with the image */
+  background-position: center; /* Center the background image */
+}
 
+.contentFrame {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  max-width: 900px; /* Maximum width of content frame */
+  margin: 20px; /* Margin around the content frame */
+  width: 100%; /* Full width within the padding of the parent */
+}
 
 .container {
   display: flex;
   width: 100%;
+  max-width: 100%;
   font-family: 'Arial', sans-serif; /* Example of setting a common font */
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center; /* Center the buttons horizontally */
+  margin-bottom: 20px; /* Spacing between button container and the rest of the content */
+}
+
+.blueButton {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  padding: 10px 15px; /* Padding inside the buttons */
+  margin: 0 10px; /* Margin between buttons */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.blueButton:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 .sidebar {

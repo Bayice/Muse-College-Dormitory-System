@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from './SelectionPage.module.css'; // 注意模块化 CSS 的导入方式
+import styles from './SupervisorDashboard.module.css'; // 注意模块化 CSS 的导入方式
 
 function SupervisorDashboard() {
   // 从 location.state 中正确提取 userData
@@ -77,8 +77,9 @@ function SupervisorDashboard() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>信息查询管理</h1>
+    <div className={styles.backgroundContainer}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>信息查询管理</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.formSection}>
           <strong>选择楼栋:</strong>
@@ -136,6 +137,7 @@ function SupervisorDashboard() {
 
         <button type="submit" className={styles.submitButton}>开始查询</button>
       </form>
+    </div>
     </div>
   );
 }  

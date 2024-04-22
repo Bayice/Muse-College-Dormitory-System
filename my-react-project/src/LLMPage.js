@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './LLMPage.module.css';
+import backgroundImage from './bg.png';
 
 function LLMPage() {
   const [inputText, setInputText] = useState('');
@@ -43,7 +44,16 @@ function LLMPage() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: 'cover', // 确保图片覆盖整个元素
+      backgroundPosition: 'center', // 居中图片
+      backgroundRepeat: 'no-repeat', // 不重复图片
+      minHeight: '100vh', // 至少高度为视窗高度
+      width: '100vw' // 宽度为视窗宽度
+    }}>
+
+    <div className={styles.container} >
       <h1 className={styles.title}>文心一言</h1>
       <div className={styles.chatBox}>
         <div className={styles.inputContainer}>
@@ -51,7 +61,7 @@ function LLMPage() {
             type="text"
             value={inputText}
             onChange={handleInputChange}
-            placeholder="输入您的消息..."
+            placeholder="告诉我您的需求..."
             className={styles.input}
           />
           <button onClick={handleSendClick} className={styles.sendButton}>发送</button>
@@ -59,6 +69,7 @@ function LLMPage() {
         {loading && <div className={styles.loader}></div>} {/* 根据loading状态显示/隐藏进度条 */}
         <div className={styles.receivedText}>{receivedText}</div>
       </div>
+    </div>
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './SelectionOutput.module.css';
+import backgroundImage from './bg.png'; // Import the background image
+
 
 function SelectionOutput() {
   const location = useLocation();
@@ -66,42 +68,55 @@ function SelectionOutput() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>
-        <ul>
+    <div className={styles.mainContainer} style={{ backgroundImage: `url(${backgroundImage})` }}>
+      <div className={styles.contentFrame}>
+
+        {/* Title */}
+        <h1 className={styles.title}>欢迎来到思廷</h1> 
+
+        {/* Buttons */}
+        <div className={styles.buttonContainer}>
           {buildings.map((building, index) => (
-            <li
+            <button
               key={index}
               onClick={() => handleBuildingSelection(building)}
-              className={`${styles.building} ${selectedBuilding === building ? styles.selectedBuilding : ''}`}
+              className={`${styles.blueButton} ${selectedBuilding === building ? styles.selectedBuilding : ''}`}
             >
               Muse {building}
-            </li>
+            </button>
           ))}
-        </ul>
+        </div>
+
+        {/* Rooms Display */}
+        <div className={styles.roomsDisplay}>
+          {/* Conditional rendering based on whether a building is selected */}
+          {selectedBuilding === '' ? (
+            <p className={styles.noRooms}>请选择你的房间</p>
+          ) : (
+            <React.Fragment>
+              {filteredRooms.map((room, idx) => (
+                <div className={styles.room} key={idx}>
+                  <input
+                    type="checkbox"
+                    id={`room-${idx}`}
+                    name={`room-${idx}`}
+                    checked={!!checkedRooms[idx]}
+                    onChange={() => setCheckedRooms(prev => ({ ...prev, [idx]: !prev[idx] }))}
+                  />
+                  <label htmlFor={`room-${idx}`}>{room[0]}</label>
+                </div>
+              ))}
+            </React.Fragment>
+          )}
+        </div>
+
+        {/* Submit Button */}
+        <button className={styles.submitButton} onClick={handleSubmit}>Submit</button>
+
       </div>
-      <div className={styles.roomsDisplay}>
-        <h1>欢迎来到思廷 {selectedBuilding}栋</h1>
-        {selectedBuilding === '' ? (
-          <p className={styles.noRooms}>请选择你的房间</p>
-        ) : (
-          filteredRooms.length > 0 ? filteredRooms.map((room, idx) => (
-            <div className={styles.room} key={idx}>
-              <input
-                type="checkbox"
-                id={`room-${idx}`}
-                name={`room-${idx}`}
-                checked={!!checkedRooms[idx]}
-                onChange={() => setCheckedRooms(prev => ({ ...prev, [idx]: !prev[idx] }))}
-              />
-              <label htmlFor={`room-${idx}`}>{room[0]}</label>
-            </div>
-          )) : <p className={styles.noRooms}>No rooms available in this building.</p>
-        )}
-      </div>
-      <button className={styles.submitButton} onClick={handleSubmit}>Submit</button>
     </div>
   );
 }
+
 
 export default SelectionOutput;
