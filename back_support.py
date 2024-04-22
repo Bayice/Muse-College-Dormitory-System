@@ -148,36 +148,49 @@ def authenticate():
 
         # 获取数据库连接
         cur = mysql.connection.cursor()
+        
+         #***************************************#
+        print("开始搜索管理员")
+        
+        # 查询数据库中是否有匹配的管理员
+        sql = "SELECT * FROM admin WHERE Admin_ID=%s AND Password=%s"
+        cur.execute(sql, (user_id, password))
+        admin = cur.fetchone()
 
+        if admin:
+            # 如果找到舍监用户，返回用户信息和身份
+            return jsonify({'success': True, 'user': admin, 'role': 'admin'}), 200
+
+        #***************************************#
+        print("开始搜索舍监")
+        
         # 查询数据库中是否有匹配的用户
         sql = "SELECT * FROM Dormitory_Supervisor WHERE Supervisor_ID=%s AND Password=%s"
         cur.execute(sql, (user_id, password))
         supervisor = cur.fetchone()
 
-        #***************************************#
-        print("开始搜索舍监")
-
         if supervisor:
             # 如果找到舍监用户，返回用户信息和身份
-            return jsonify({'success': True, 'user': supervisor, 'role': 'supervisor','room:': "A801"}), 200
+            return jsonify({'success': True, 'user': supervisor, 'role': 'supervisor'}), 200
 
+
+        #***************************************#
+        print("开始搜索导师")
         sql = "SELECT * FROM Floor_Tutor WHERE Tutor_ID=%s AND Password=%s"
         cur.execute(sql, (user_id, password))
         tutor = cur.fetchone()
 
-        #***************************************#
-        print("开始搜索导师")
-
         if tutor:
             # 如果找到导师用户，返回用户信息和身份
-            return jsonify({'success': True, 'user': tutor, 'role': 'tutor', 'room': "A410"}), 200
+            return jsonify({'success': True, 'user': tutor, 'role': 'tutor'}), 200
 
-        sql = "SELECT * FROM Student WHERE Student_ID=%s AND Password=%s"
-        cur.execute(sql, (user_id, password))
-        student = cur.fetchone()
 
         #***************************************#
         print("开始搜索学生")
+        
+        sql = "SELECT * FROM Student WHERE Student_ID=%s AND Password=%s"
+        cur.execute(sql, (user_id, password))
+        student = cur.fetchone()
 
         if student:
             # 如果找到学生用户，返回用户信息和身份
@@ -440,14 +453,9 @@ def view_building():
 @app.route('/view_floor', methods=['POST'])
 def view_floor():
     print("开始查看楼层信息")
-    data = request.json
+
     try:
         data = request.json
-        Tutor_ID = data['Tutor_ID']
-        print(data)
-        print(type(Tutor_ID))
-        print(Tutor_ID)
-
         if not data or 'Tutor_ID' not in data:
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 
@@ -554,10 +562,9 @@ def update_student_introduction():
 def admin_query():
     try:
         data = request.json
-        if not data or 'admin_id' not in data or 'buildings' not in data or 'floors' not in data or 'infors' not in data:
+        if not data or 'buildings' not in data or 'floors' not in data or 'infors' not in data:
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 
-        admin_id = data['admin_id']
         buildings = data['buildings']
         floors = data['floors']
         infors = data['infors'][0]
