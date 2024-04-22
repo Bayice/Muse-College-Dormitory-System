@@ -74,6 +74,27 @@
 }
 
 
+/* SelectionPage.module.css */
+
+.userInputContainer {
+    margin-top: 20px;
+  }
+  
+  .userInput {
+    padding: 10px;
+    width: 80%;
+    margin-right: 10px;
+  }
+  
+  .userText {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+
   
 
 

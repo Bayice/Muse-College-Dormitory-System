@@ -12,6 +12,8 @@ import Dom_select from './Dom_select';
 import Dom_welcome from './Dom_welcome';
 import SupSelectOutput from './SupSelectOutput';
 import RoomDetails from './RoomDetails'; 
+import ManSelectOutput from './ManSelectOutput';
+import LLMPage from './LLMPage';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/Dom_welcome" element={<Dom_welcome />} />
         <Route path="/Sup-select-output" element={<SupSelectOutput />} />
         <Route path="/room/:roomNumber" element={<RoomDetails />} />
+        <Route path="/man-select-output" element={<ManSelectOutput />} />
+        <Route path="/llm" element={<LLMPage />} />
       </Routes>
     </Router>
   );

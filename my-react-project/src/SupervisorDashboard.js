@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styles from './SelectionPage.module.css'; // 注意模块化 CSS 的导入方式
+import styles from './SupervisorDashboard.module.css'; // 注意模块化 CSS 的导入方式
 
 function SupervisorDashboard() {
   // 从 location.state 中正确提取 userData
@@ -49,13 +49,12 @@ function SupervisorDashboard() {
       buildings,
       floors,
       infors,  // Using the state variable directly which holds the user-selected information types
-      supervisor_id: supervisorId  // Including the supervisor ID in the post data
     };
   
     console.log("Submitting the following data to the backend:", postData);  // Logging the data being submitted
   
     try {
-      const response = await fetch('http://127.0.0.1:5000/view_building', {  // Updated the API endpoint
+      const response = await fetch('http://127.0.0.1:5000/admin_query', {  // Updated the API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -67,7 +66,7 @@ function SupervisorDashboard() {
         const info = await response.json();
         console.log(info);
         alert('Rooms fetched successfully!');
-        navigate('/Sup-select-output', { state: { info: info } });
+        navigate('/Sup-select-output', { state: { info: info, role: postData.infors } });
       } else {
         throw new Error('Failed to fetch rooms. Status: ' + response.status);
       }
@@ -78,8 +77,9 @@ function SupervisorDashboard() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>信息查询管理</h1>
+    <div className={styles.backgroundContainer}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>信息查询管理</h1>
       <form onSubmit={handleSubmit}>
         <div className={styles.formSection}>
           <strong>选择楼栋:</strong>
@@ -119,7 +119,7 @@ function SupervisorDashboard() {
   
         <div className={styles.formSection}>
           <strong>选择信息:</strong>
-          {['Manager', 'Tutor', 'Student'].map((infor) => (
+          {['Dormitory_Supervisor', 'Tutor', 'Student'].map((infor) => (
             <div key={infor} className={styles.inputGroup}>
               <input
                 type="checkbox"
@@ -137,6 +137,7 @@ function SupervisorDashboard() {
 
         <button type="submit" className={styles.submitButton}>开始查询</button>
       </form>
+    </div>
     </div>
   );
 }  

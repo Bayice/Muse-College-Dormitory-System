@@ -116,7 +116,7 @@ def LLM():
     
     print(response.text)
     # 返回处理后的字符串作为响应
-    return response.json().get('result', ''), 200
+    return response.text, 200
 
 # # 接收用户消息的路由
 # @app.route('/send_message', methods=['POST'])
@@ -593,8 +593,12 @@ def update_student_introduction():
 # 路由：管理员查询信息
 @app.route('/admin_query', methods=['POST'])
 def admin_query():
+    data = request.json
+    print(data)
+    print(data['buildings'])
     try:
         data = request.json
+        print(data)
         if not data or 'buildings' not in data or 'floors' not in data or 'infors' not in data:
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 
