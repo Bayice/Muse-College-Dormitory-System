@@ -84,6 +84,10 @@ function SelectionPage() {
     }
   };
 
+  const handleLLMButtonClick = () => {
+    navigate('/llm');
+  };
+
   return (
   <div className="background_page" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat', minHeight: '100vh'}}> {/* Inline style to apply background image */}
 
@@ -172,6 +176,7 @@ function SelectionPage() {
         </div>
   
         <button type="submit" className={styles.submitButton}>开始筛选</button>
+        <button type="button" onClick={handleLLMButtonClick} className={styles.submitButton}>向文心一言寻找推荐</button>
       </form>
     </div>
   </div>

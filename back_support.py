@@ -116,7 +116,7 @@ def LLM():
     
     print(response.text)
     # 返回处理后的字符串作为响应
-    return response.json().get('result', ''), 200
+    return response.text, 200
 
 # # 接收用户消息的路由
 # @app.route('/send_message', methods=['POST'])

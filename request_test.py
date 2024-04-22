@@ -2,19 +2,19 @@ import requests
 
 
 
-# 舍监查看整楼的URL
-url = 'http://127.0.0.1:5000/view_building'
+# # 舍监查看整楼的URL
+# url = 'http://127.0.0.1:5000/view_building'
 
-# 请求的数据
-data = {
-    'Dormitory_Supervisor_ID': '1',   # 舍监ID
-    'floors': [2,3],  # 选择的楼层列表
-    'infors': ['Tutor'],  # 用户类型（'Dormitory_Supervisor', 'Tutor', 'Student'）
-}
-# 发送POST请求
-response = requests.post(url, json=data)
+# # 请求的数据
+# data = {
+#     'Dormitory_Supervisor_ID': '1',   # 舍监ID
+#     'floors': [2,3],  # 选择的楼层列表
+#     'infors': ['Tutor'],  # 用户类型（'Dormitory_Supervisor', 'Tutor', 'Student'）
+# }
+# # 发送POST请求
+# response = requests.post(url, json=data)
 
-print(response.json())
+# print(response.json())
 
 
 # # Admin查看请求的URL
@@ -39,23 +39,23 @@ print(response.json())
 #     print('Error:', response.status_code)
 #     print(response.json())  # 输出错误信息
 
-# # 请求的URL
-# url = 'http://127.0.0.1:5000/LLM'
+# 请求的URL
+url = 'http://127.0.0.1:5000/LLM'
 
-# # 请求的数据
-# data = {
-#     'input_string': '请帮我选一个合适的宿舍吧！'  # 要处理的字符串
-# }
+# 请求的数据
+data = {
+    'input_string': '请帮我选一个合适的宿舍吧！'  # 要处理的字符串
+}
 
-# # 发送 POST 请求
-# response = requests.post(url, json=data)
+# 发送 POST 请求
+response = requests.post(url, json=data)
 
-# # 输出响应
-# if response.status_code == 200:
-#     processed_string = response.text
-#     print("处理后的字符串:", processed_string)
-# else:
-#     print('请求失败:', response.status_code)
+# 输出响应
+if response.status_code == 200:
+    processed_string = response.text
+    print("处理后的字符串:", processed_string)
+else:
+    print('请求失败:', response.status_code)
 
 
 
