@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './TutorDashboard.css'; // Ensure your CSS is still applied
+import backgroundImage from './bg.png';
 
 function TutorDashboard() {
     const location = useLocation();
@@ -25,6 +26,8 @@ function TutorDashboard() {
     }, [floorData]); // Dependency ensures re-run if floorData changes
 
     return (
+        <div className="container" style={{ backgroundImage: `url(${backgroundImage})` }}> {/* Inline style to apply background image */}
+
         <div className="container">
             <h1>Welcome, {user ? user[1] : 'User'}</h1>
 
@@ -46,6 +49,7 @@ function TutorDashboard() {
                     </div>
                 ))}
             </div>
+        </div>
         </div>
     );
 }

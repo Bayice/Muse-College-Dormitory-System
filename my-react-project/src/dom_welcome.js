@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Dom_welcome.module.css';
+import backgroundImage from './bg.png';
 
 function Dom_welcome() {
   const location = useLocation();
@@ -52,6 +53,8 @@ function Dom_welcome() {
   };
 
   return (
+    <div className={styles.supervisorDashboard} style={{ backgroundImage: `url(${backgroundImage})` }}>
+
     <div className={styles.container}>
       <div className={styles.card}>
         <h1 className={styles.title}>Welcome to Dorm {roomid || "Unknown"}</h1>
@@ -68,6 +71,7 @@ function Dom_welcome() {
         </div>
         <button className={styles.finishButton} onClick={handleFinishClick}>Finish</button>
       </div>
+    </div>
     </div>
   );
 }

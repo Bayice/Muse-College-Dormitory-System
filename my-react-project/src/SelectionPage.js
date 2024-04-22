@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import styles from './SelectionPage.module.css';
+import backgroundImage from './bg.png';
+
 function SelectionPage() {
 
   const location = useLocation();
@@ -83,6 +85,8 @@ function SelectionPage() {
   };
 
   return (
+    <div className="container" style={{ backgroundImage: `url(${backgroundImage})` }}> {/* Inline style to apply background image */}
+
     <div className={styles.container}>
       <h1 className={styles.title}>宿舍筛选</h1>
       <form onSubmit={handleSubmit}>
@@ -169,6 +173,7 @@ function SelectionPage() {
   
         <button type="submit" className={styles.submitButton}>开始筛选</button>
       </form>
+    </div>
     </div>
   );
 }

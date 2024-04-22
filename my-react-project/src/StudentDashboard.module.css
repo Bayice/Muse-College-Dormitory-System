@@ -5,6 +5,10 @@
     align-items: center;
     height: 80vh; /* Full viewport height */
     width: 100%; /* Full width */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* 全视口高度 */
 }
 
 .containerStyle {

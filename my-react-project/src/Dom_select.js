@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import styles from './Dom_select.module.css';
 import { useNavigate } from 'react-router-dom';
+import backgroundImage from './bg.png';
 
 function Dom_select() {
   const location = useLocation();
@@ -76,6 +77,8 @@ function Dom_select() {
   };
 
   return (
+    <div className={styles.supervisorDashboard} style={{ backgroundImage: `url(${backgroundImage})` }}>
+
     <div className={styles.supervisorDashboard}>
       <div className={styles.welcomeText}>Dorm {roomid}</div>
       <div className={styles.content}>
@@ -97,6 +100,7 @@ function Dom_select() {
           <button onClick={sendDataToServer}>Submit</button>
         </div>
       </div>
+    </div>
     </div>
   );
 }

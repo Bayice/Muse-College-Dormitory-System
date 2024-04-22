@@ -1,13 +1,18 @@
 /* 整体容器风格 */
+
 .container {
-    max-width: 600px; /* 修改最大宽度 */
+    max-width: 600px;
     padding: 30px;
-    margin: 50px auto; /* 调整外边距 */
-    background-color: #f9f9f9; /* 浅灰色背景 */
+    margin: 50px auto;
+    background-color: #f9f9f9; /* You may not need this if the background image should cover everything */
     border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* 调整阴影 */
-    border: 1px solid #dddddd; /* 更浅的边框 */
-}
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dddddd;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative; /* Needed to position any absolute children */
+  }
 
 /* 标题风格 */
 .container h1 {

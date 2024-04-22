@@ -1,0 +1,34 @@
+/* SupSelectOutput.module.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('bg.png');
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .card {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px;
+    width: 80%; /* Or fixed width */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px); /* If you want a frosted glass effect */
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .content {
+    font-size: 16px;
+  }
+  
+  /* Add additional styling for buttons, inputs, etc., here */
+  

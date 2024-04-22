@@ -1,12 +1,17 @@
 /* SelectionPage.module.css */
 
+
 .container {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 0px auto;
     padding: 30px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* 全视口高度 */
 }
 
 .title {
