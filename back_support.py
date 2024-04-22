@@ -417,7 +417,9 @@ def view_building():
             return jsonify({'success': False, 'message': 'Invalid request format'}), 400
 
         Dormitory_Supervisor_ID = data['Dormitory_Supervisor_ID']
-
+        floors = data['floors']
+        infors = data['infors'][0]
+        
         # 获取数据库连接
         cur = mysql.connection.cursor()
 
@@ -427,18 +429,48 @@ def view_building():
         if not dormitory_id:
             return jsonify({'success': False, 'message': 'No dormitory found for this supervisor'}), 404
 
-        # 第二步：查询所有相关的房间ID
-        cur.execute("SELECT Room_ID FROM room WHERE Dormitory_ID = %s", (dormitory_id[0],))
-        room_ids = cur.fetchall()
+        # 构建查询条件
+        print(dormitory_id[0])
+        dormitory_id = dormitory_id[0]
+        building_condition = f"Dormitory_ID = '{dormitory_id}'"
+        floor_condition = " OR ".join([f"Floor_Number={floor}" for floor in floors])
 
-        # 第三步：查询所有相关的学生信息
-        students_info = []
-        for (room_id,) in room_ids:
-            cur.execute("SELECT * FROM student WHERE Room_ID = %s", (room_id,))
-            student_data = cur.fetchall()
-            students_info.extend(student_data)
+        print(building_condition)
+        print(floor_condition)
+        
+        # 构建最终的 WHERE 子句
+        where_clause = building_condition
+        if floors:
+            if where_clause:
+                where_clause += " AND "
+            where_clause += f"({floor_condition})"
+            
+        #************************#
+        print("查询语句")
+        print(where_clause)
 
-        return jsonify({'success': True, 'data': students_info}), 200
+        # 查询数据库中符合要求的用户信息
+        if infors == 'Tutor':
+            sql = f"""
+                SELECT *
+                FROM Floor_Tutor
+                JOIN Floor ON Floor_Tutor.Tutor_ID = Floor.Tutor_ID
+                WHERE {where_clause}
+            """
+        elif infors == 'Student':
+            sql = f"""
+                SELECT *
+                FROM Student
+                WHERE {where_clause}
+            """
+        else:
+            return jsonify({'success': False, 'message': 'Invalid user type'}), 400
+
+        cur.execute(sql)
+        users = cur.fetchall()
+
+        # 返回符合要求的用户信息
+        return jsonify({'success': True, 'users': users}), 200
     except Exception as e:
         # 记录错误日志
         app.logger.error(f"An error occurred: {str(e)}")
@@ -447,6 +479,7 @@ def view_building():
         # 确保关闭数据库连接
         if 'cur' in locals():
             cur.close()
+            
 
 
 # tutor查看自己所管理的楼层的学生信息的路由
