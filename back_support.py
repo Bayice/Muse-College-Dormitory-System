@@ -607,7 +607,6 @@ def admin_query():
             sql = f"""
                 SELECT *
                 FROM Student
-                JOIN Room ON Student.Room_ID = Room.Room_ID AND Student.Dormitory_ID = Room.Dormitory_ID AND Student.Floor_Number = Room.Floor_Number
                 WHERE {where_clause}
             """
         else:
